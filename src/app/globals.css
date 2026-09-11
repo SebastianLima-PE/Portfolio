@@ -1,0 +1,215 @@
+@import "tailwindcss";
+
+@theme {
+  /* Fondo profundo del sitio */
+  --color-ink: #0a0a0a;
+  --color-ink-soft: #111113;
+
+  /* Acento rojo vibrante — cambia esto y cambia todo el sitio */
+  --color-accent: #e11d48;
+  --color-accent-strong: #be123c;
+
+  /* Verde neón para el badge de disponibilidad */
+  --color-neon: #4ade80;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /*
+    Curvas de la skill de animación. Las de CSS por defecto son demasiado
+    débiles; estas no se inventan ni se aproximan.
+      ease-out    -> entradas y salidas
+      ease-in-out -> movimiento o morfado en pantalla
+    Nunca ease-in en UI: arranca lento justo en el instante que el usuario mira.
+  */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+  /* Marquee de testimonios. El -50% asume dos grupos idénticos: cada grupo
+     lleva `pr-5` para que su ancho incluya el gap de cierre y el salto sea
+     invisible. Si cambias el gap, cambia también ese padding. */
+  --animate-marquee: marquee 50s linear infinite;
+
+  /*
+    Flotación del avatar e indicador de scroll. Van en CSS y no en Motion a
+    propósito: son movimientos predeterminados e infinitos, y una animación
+    CSS corre fuera del hilo principal, así que sigue fluida mientras la
+    página compila, descarga fuentes o pinta. El rAF de JS ahí suelta
+    fotogramas. El bloque de reduced-motion las apaga de golpe.
+  */
+  --animate-float: float 5s ease-in-out infinite;
+  --animate-scroll-dot: scroll-dot 1.8s ease-in-out infinite;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    25% {
+      transform: translateY(-7px);
+    }
+    75% {
+      transform: translateY(7px);
+    }
+  }
+
+  @keyframes scroll-dot {
+    0%,
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    50% {
+      transform: translateY(10px);
+      opacity: 0.25;
+    }
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: #fff;
+  }
+}
+
+/*
+  ESCALA TIPOGRAFICA
+  ------------------
+  El problema no era el tamano: los seis titulares usaban la misma receta que
+  el hero (font-black + tracking-tighter) a menor escala. Misma voz, distinto
+  volumen, que se lee como ausencia de jerarquia.
+
+  Ahora cada nivel tiene tratamiento propio, y el peso black queda reservado
+  al hero y al footer: los dos momentos de declaracion de la pagina.
+*/
+
+/* Declaracion a dos lineas, con la segunda en rojo. Ese recurso viene del
+   video de referencia, y por eso vive solo aqui y no en cada titular. */
+@utility heading-statement {
+  font-size: clamp(2.25rem, 4.6vw, 3.75rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+}
+
+/* Senal de seccion: orienta, no declara. Peso 700 y no 900, para no
+   disputarle el protagonismo al hero. */
+@utility heading-section {
+  font-size: clamp(1.875rem, 3.2vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+
+/* Titulo de contenido dentro de una tarjeta. */
+@utility heading-card {
+  font-size: 1.375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+/* El nivel que faltaba entre titular y cuerpo. */
+@utility lead {
+  font-size: 1.125rem;
+  line-height: 1.65;
+}
+
+/*
+  ESCALA TIPOGRAFICA
+  ------------------
+  El problema no era el tamano: los seis titulares usaban la misma receta que
+  el hero (font-black + tracking-tighter) a menor escala. Misma voz, distinto
+  volumen, que se lee como ausencia de jerarquia.
+
+  Ahora cada nivel tiene tratamiento propio, y el peso black queda reservado
+  al hero y al footer: los dos momentos de declaracion de la pagina.
+*/
+
+/* Declaracion a dos lineas, con la segunda en rojo. Ese recurso viene del
+   video de referencia, y por eso vive solo aqui y no en cada titular. */
+@utility heading-statement {
+  font-size: clamp(2.25rem, 4.6vw, 3.75rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+}
+
+/* Senal de seccion: orienta, no declara. Peso 700 y no 900, para no
+   disputarle el protagonismo al hero. */
+@utility heading-section {
+  font-size: clamp(1.875rem, 3.2vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+
+/* Titulo de contenido dentro de una tarjeta. */
+@utility heading-card {
+  font-size: 1.375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+/* El nivel que faltaba entre titular y cuerpo. */
+@utility lead {
+  font-size: 1.125rem;
+  line-height: 1.65;
+}
+
+/* Carrusel deslizable sin barra de scroll visible */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Respeta a quien tenga activado "reducir movimiento" en su sistema */
+@media (prefers-reduced-motion: reduce) {
+  /*
+    Menos movimiento y más suave, no cero. Se elimina todo lo que se desplaza
+    o se repite sin fin —que es lo que de verdad molesta a quien activa esta
+    preferencia— y se conservan las transiciones de opacidad y color, porque
+    siguen ayudando a entender que algo cambió de estado.
+  */
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 120ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Sin marquee, la cinta se queda quieta: se devuelve el scroll manual para
+     que las reseñas de más allá del borde sigan siendo alcanzables. */
+  .marquee-viewport {
+    overflow-x: auto !important;
+  }
+
+  .marquee-track {
+    transform: none !important;
+  }
+}
