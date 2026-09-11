@@ -16,9 +16,14 @@ const inter = Inter({
 */
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000");
+  // Dominio estable de produccion. VERCEL_URL, en cambio, cambia en cada
+  // despliegue, y la imagen de previsualizacion quedaria atada a una URL
+  // distinta cada vez que subes algo.
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000");
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
