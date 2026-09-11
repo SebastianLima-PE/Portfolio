@@ -25,15 +25,28 @@ const SITE_URL =
       ? `https://${process.env.VERCEL_URL}`
       : "http://localhost:3000");
 
+/*
+  LinkedIn descarta las descripciones de menos de 100 caracteres y muestra la
+  tarjeta sin texto. Esta ronda los 170, que es la franja util: suficiente
+  para pasar el filtro y por debajo del punto donde LinkedIn recorta.
+  Una sola constante para `description` y `openGraph`: tenerlas distintas
+  significaba que cada plataforma contaba una cosa diferente.
+*/
+const DESCRIPCION =
+  "Sebastián Pariachi, estudiante de Ingeniería de Software en Lima. " +
+  "Automatizo lo repetitivo, convierto datos en decisiones y construyo el " +
+  "software completo que lo sostiene, del modelo de datos a la interfaz.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: `${site.name} — ${site.role}`,
-  description:
-    "Portafolio de Sebastián Pariachi. Automatización de procesos, analítica de datos e IA, con base en desarrollo Full Stack web y móvil.",
+  description: DESCRIPCION,
+  // Genera <meta name="author">, que es lo que LinkedIn buscaba y no encontro
+  authors: [{ name: "Sebastián Pariachi Limahuaya", url: site.linkedin }],
+  creator: "Sebastián Pariachi Limahuaya",
   openGraph: {
     title: `${site.name} — ${site.role}`,
-    description:
-      "Automatización de procesos, analítica de datos e IA, con base en desarrollo Full Stack.",
+    description: DESCRIPCION,
     type: "website",
     locale: "es_PE",
   },
