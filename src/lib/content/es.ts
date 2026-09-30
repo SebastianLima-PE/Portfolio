@@ -28,8 +28,13 @@ export const es: Content = {
   },
 
   hero: {
-    /** Se parte en dos líneas; el avatar interrumpe la segunda */
-    lineOne: "BUILD",
+    /*
+      Se parte en dos líneas; el avatar interrumpe la segunda. "CREO" y no
+      "CONSTRUYO": la primera línea sale a 26vw y una palabra de nueve letras
+      no entra en un teléfono. "SOFTWARE" se queda porque en español también
+      se dice así.
+    */
+    lineOne: "CREO",
     lineTwo: "SOFTWARE",
     tagline:
       "Automatizo lo repetitivo y convierto datos en decisiones. Y construyo el software completo que lo sostiene, del modelo de datos a la interfaz.",
@@ -187,17 +192,17 @@ export const es: Content = {
   ],
 
   /*
-    Los titulares en inglés ("Latest Projects", "Book a call"...) vienen del
-    diseño de referencia y se quedan a propósito en la versión en español.
-    Si algún día los quieres en español, basta con cambiarlos aquí.
+    Antes estos titulares estaban en inglés porque venían del diseño de
+    referencia, y el resultado era que "/" y "/en" se veían casi iguales.
+    Ahora la versión en español está en español de arriba abajo.
   */
   ui: {
     nav: [
-      { label: "Work", href: "#work" },
-      { label: "Services", href: "#services" },
-      { label: "Contact", href: "#contact" },
+      { label: "Proyectos", href: "#work" },
+      { label: "Servicios", href: "#services" },
+      { label: "Contacto", href: "#contact" },
     ],
-    bookCall: "Book a call",
+    bookCall: "Agendar llamada",
     openMenu: "Abrir menú",
     closeMenu: "Cerrar menú",
     switchLanguage: {
@@ -207,21 +212,21 @@ export const es: Content = {
     },
     avatarAlt: "Avatar 3D de Sebastián",
     available: "Disponible para trabajar",
-    projectsHeading: "Latest Projects",
-    servicesHeading: { line1: "What I help you to", line2: "Shape..." },
+    projectsHeading: "Proyectos recientes",
+    servicesHeading: { line1: "Lo que te ayudo", line2: "a construir..." },
     servicesLead:
       "No solo escribo código: acompaño el problema desde la definición hasta el deploy. Estas son las cuatro áreas donde puedo mover la aguja de tu proyecto.",
     historyHeading: "Trayectoria",
-    testimonialsHeading: "Hear from the people I worked with",
+    testimonialsHeading: "Lo que dicen quienes trabajaron conmigo",
     faqHeading: "Preguntas frecuentes",
     ctaTitle: "¿Todavía con dudas?",
     ctaBody:
       "Agenda una llamada gratuita de 15 minutos. Revisamos tu idea y te digo con franqueza si puedo ayudarte y cómo.",
-    ctaButton: "Book a free discovery call",
+    ctaButton: "Agenda una llamada gratis",
     footerHeading: {
-      before: "Let's build",
-      highlight: "incredible",
-      after: "work together",
+      before: "Construyamos algo",
+      highlight: "increíble",
+      after: "juntos",
     },
     madeWith: "Hecho con Next.js.",
     recruiterQuestion: "¿Eres reclutador?",
