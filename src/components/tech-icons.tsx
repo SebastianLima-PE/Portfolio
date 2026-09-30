@@ -74,18 +74,25 @@ export const TECH_ICONS: Record<
   string,
   { Icon: ComponentType<IconProps>; brand: string }
 > = {
+  /*
+    Los azules y violetas oficiales de MySQL, Python, Flutter, TypeScript,
+    Power Automate y Kotlin rondaban un contraste de 2.3 a 3.7 sobre el fondo
+    oscuro y se perdian aun encendidos. Van aclarados dentro de su mismo tono
+    (Flutter usa su celeste oficial), igual que Pandas: todos quedan por
+    encima de 5:1.
+  */
   React: { Icon: ReactIcon, brand: "#61DAFB" },
   "Next.js": { Icon: NextjsIcon, brand: "#FFFFFF" },
-  TypeScript: { Icon: TypeScriptIcon, brand: "#3178C6" },
-  Python: { Icon: PythonIcon, brand: "#3776AB" },
+  TypeScript: { Icon: TypeScriptIcon, brand: "#5E9EE8" },
+  Python: { Icon: PythonIcon, brand: "#5A9FD4" },
   "Node.js": { Icon: NodejsIcon, brand: "#5FA04E" },
   Express: { Icon: ExpressIcon, brand: "#FFFFFF" },
-  MySQL: { Icon: MySQLIcon, brand: "#4479A1" },
-  Kotlin: { Icon: KotlinIcon, brand: "#7F52FF" },
-  Flutter: { Icon: FlutterIcon, brand: "#02569B" },
+  MySQL: { Icon: MySQLIcon, brand: "#6FA8D6" },
+  Kotlin: { Icon: KotlinIcon, brand: "#9D7DFF" },
+  Flutter: { Icon: FlutterIcon, brand: "#54C5F8" },
   Pandas: { Icon: PandasIcon, brand: "#A78BFA" },
   "scikit-learn": { Icon: ScikitlearnIcon, brand: "#F7931E" },
   Docker: { Icon: DockerIcon, brand: "#2496ED" },
   "Power BI": { Icon: BarChart3, brand: "#F2C811" },
-  "Power Automate": { Icon: Workflow, brand: "#0066FF" },
+  "Power Automate": { Icon: Workflow, brand: "#5C9DFF" },
 };

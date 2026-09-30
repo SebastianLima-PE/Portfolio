@@ -93,17 +93,35 @@ function LeftColumn({ activeTools }: { activeTools: string[] }) {
                 que el visitante trae —con que hace exactamente cada cosa—
                 sin anadir ni un movimiento nuevo a la pagina.
               */
-              className={`flex h-14 w-14 cursor-default items-center justify-center rounded-2xl border bg-zinc-900/50 backdrop-blur-sm transition-[transform,color,border-color,opacity] duration-300 ease-out hover:scale-105 hover:border-white/20 hover:text-[var(--brand)] ${
+              /*
+                Los apagados iban en zinc-500 y casi no se leian sobre el
+                negro. Ahora van en zinc-400 al 70%, y el encendido gana
+                ademas un fondo mas claro para que la jerarquia no dependa
+                solo del color de marca.
+              */
+              className={`group flex h-14 w-14 cursor-default items-center justify-center rounded-2xl border backdrop-blur-sm transition-[transform,color,border-color,background-color] duration-300 ease-out hover:scale-105 hover:border-white/20 hover:text-[var(--brand)] ${
                 encendido
-                  ? "border-white/20 text-[var(--brand)] opacity-100"
-                  : "border-white/5 text-zinc-500 opacity-45"
+                  ? "border-white/25 bg-zinc-800/70 text-[var(--brand)]"
+                  : "border-white/10 bg-zinc-900/50 text-zinc-400"
               }`}
             >
-              {Icon ? (
-                <Icon className="h-6 w-6" />
-              ) : (
-                <span className="text-[11px] font-semibold">{tool.short}</span>
-              )}
+              {/*
+                La opacidad va en este span y no en el motion.div: la
+                animacion de entrada deja `opacity: 1` escrito en linea sobre
+                el motion.div y pisa cualquier clase. Por eso el 45% que
+                tenian antes los apagados nunca llego a aplicarse.
+              */}
+              <span
+                className={`flex items-center justify-center transition-opacity duration-300 ease-out group-hover:opacity-100 ${
+                  encendido ? "opacity-100" : "opacity-70"
+                }`}
+              >
+                {Icon ? (
+                  <Icon className="h-6 w-6" />
+                ) : (
+                  <span className="text-[11px] font-semibold">{tool.short}</span>
+                )}
+              </span>
             </motion.div>
           );
         })}
