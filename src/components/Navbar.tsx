@@ -2,29 +2,13 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { useState, useSyncExternalStore } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { site } from "@/lib/data";
 import { useContent } from "@/lib/content";
+import { useScrolled } from "@/lib/use-scrolled";
 import { EASE_OUT } from "./Reveal";
 import RecruiterCV from "./RecruiterCV";
-
-/**
- * Suscripción nativa al scroll. Antes esto usaba `useScroll` de Framer, pero
- * ese valor se actualiza dentro del bucle de requestAnimationFrame: para leer
- * una posición no hace falta el motor de animación, y así funciona también
- * donde el rAF esté limitado. `useSyncExternalStore` evita el useEffect.
- */
-function useScrolled(threshold = 50) {
-  return useSyncExternalStore(
-    (onChange) => {
-      window.addEventListener("scroll", onChange, { passive: true });
-      return () => window.removeEventListener("scroll", onChange);
-    },
-    () => window.scrollY > threshold,
-    () => false, // en el servidor siempre arrancamos arriba
-  );
-}
 
 function Logo() {
   return (

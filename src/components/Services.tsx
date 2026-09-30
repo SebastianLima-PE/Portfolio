@@ -507,7 +507,15 @@ export default function Services() {
     <section
       ref={ref}
       id="services"
-      className={pinned ? "relative h-[400vh]" : "relative"}
+      /*
+        overflow-x-clip: las tarjetas entran y salen desplazadas hasta 190px a
+        la derecha y ensanchaban la página, lo que dejaba una barra de scroll
+        horizontal. `clip` y no `hidden`: `hidden` convierte la sección en un
+        contenedor de scroll y el `sticky` de adentro deja de anclarse.
+      */
+      className={
+        pinned ? "relative h-[400vh] overflow-x-clip" : "relative overflow-x-clip"
+      }
     >
       <div className={pinned ? "sticky top-0 flex h-svh items-center" : ""}>
         <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-12 px-4 py-24 lg:grid-cols-2">

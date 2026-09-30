@@ -12,6 +12,7 @@ import Image from "next/image";
 import { useRef, type CSSProperties } from "react";
 import { site } from "@/lib/data";
 import { useContent } from "@/lib/content";
+import { useScrolled } from "@/lib/use-scrolled";
 import { EASE_OUT, REVEAL, VIEWPORT } from "./Reveal";
 import { TECH_ICONS } from "./tech-icons";
 
@@ -30,6 +31,9 @@ export default function Hero() {
   // de la propuesta de valor.
   const ref = useRef<HTMLDivElement>(null);
   const { hero, site: siteText, ui } = useContent();
+  // La señal de scroll se va en cuanto el visitante empieza a bajar: ya
+  // entendió que hay más abajo, que es lo único que venía a decir.
+  const scrolled = useScrolled(80);
   // Quien pide menos movimiento no recibe parallax: es desplazamiento puro y
   // no comunica nada que el texto no diga ya.
   const reduce = useReducedMotion();
@@ -141,18 +145,21 @@ export default function Hero() {
           más abajo. Va `fixed` y no `absolute` a propósito: anclado a la
           sección se sale de pantalla en cuanto el hero supera el viewport.
           Y va a la esquina, no centrado: en el centro está el avatar.
-          Se desvanece con el propio progreso del scroll, así que desaparece
-          en cuanto cumple su función.
+          Se oculta con una transición CSS y no con `fadeOut`. Framer pasa las
+          opacidades ligadas al scroll a una ViewTimeline nativa, y cuando esa
+          animación termina el elemento vuelve a opacidad 1: como este va
+          `fixed`, reaparecía encima de todas las secciones hasta el footer.
         */}
-        <motion.div
+        <div
           aria-hidden
-          style={{ opacity: fadeOut }}
-          className="pointer-events-none fixed bottom-7 left-6 z-30 flex items-center gap-3 sm:left-10"
+          className={`pointer-events-none fixed bottom-7 left-6 z-30 flex items-center gap-3 transition-opacity duration-300 ease-out sm:left-10 ${
+            scrolled ? "opacity-0" : "opacity-100"
+          }`}
         >
           <span className="flex h-9 w-5 items-start justify-center rounded-full border border-white/15 p-1">
             <span className="animate-scroll-dot h-1.5 w-1.5 rounded-full bg-accent" />
           </span>
-        </motion.div>
+        </div>
       </div>
 
       {/* ---------- Pantalla 2: la propuesta de valor ---------- */}
