@@ -29,12 +29,11 @@ export const es: Content = {
 
   hero: {
     /*
-      Se parte en dos líneas; el avatar interrumpe la segunda. "CREO" y no
-      "CONSTRUYO": la primera línea sale a 26vw y una palabra de nueve letras
-      no entra en un teléfono. "SOFTWARE" se queda porque en español también
-      se dice así.
+      Se parte en dos líneas; el avatar interrumpe la segunda. Se queda en
+      inglés también en esta versión a propósito: es la firma visual del
+      sitio y Sebastián la quiere igual en los dos idiomas.
     */
-    lineOne: "CREO",
+    lineOne: "BUILD",
     lineTwo: "SOFTWARE",
     tagline:
       "Automatizo lo repetitivo y convierto datos en decisiones. Y construyo el software completo que lo sostiene, del modelo de datos a la interfaz.",
