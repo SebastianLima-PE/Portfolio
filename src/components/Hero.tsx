@@ -10,7 +10,8 @@ import {
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { useRef, type CSSProperties } from "react";
-import { hero, site } from "@/lib/data";
+import { site } from "@/lib/data";
+import { useContent } from "@/lib/content";
 import { EASE_OUT, REVEAL, VIEWPORT } from "./Reveal";
 import { TECH_ICONS } from "./tech-icons";
 
@@ -28,6 +29,7 @@ export default function Hero() {
   // debe agotarse cuando el título sale de vista, no cuando termina el bloque
   // de la propuesta de valor.
   const ref = useRef<HTMLDivElement>(null);
+  const { hero, site: siteText, ui } = useContent();
   // Quien pide menos movimiento no recibe parallax: es desplazamiento puro y
   // no comunica nada que el texto no diga ya.
   const reduce = useReducedMotion();
@@ -121,7 +123,7 @@ export default function Hero() {
                   */}
                     <Image
                       src="/avatar.png"
-                      alt="Avatar 3D de Sebastián"
+                      alt={ui.avatarAlt}
                       width={640}
                       height={640}
                       priority
@@ -174,7 +176,7 @@ export default function Hero() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-neon opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-neon" />
               </span>
-              Disponible para trabajar
+              {ui.available}
             </span>
           )}
 
@@ -188,7 +190,7 @@ export default function Hero() {
             quien lo busca se identifica solo.
           */}
           <a
-            href={site.bookingUrl}
+            href={siteText.bookingUrl}
             className="group inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 font-bold text-white shadow-[0_0_20px_-4px_var(--color-accent)] transition-[transform,background-color,box-shadow] duration-150 ease-out hover:scale-105 hover:bg-accent-strong hover:shadow-[0_0_34px_-2px_var(--color-accent)] active:scale-95"
           >
             {hero.cta}

@@ -4,7 +4,8 @@ import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import Image from "next/image";
 import type { MouseEvent } from "react";
 import { ArrowUpRight, Sparkles } from "lucide-react";
-import { projects, type Project, type ProjectVisual } from "@/lib/data";
+import { useContent } from "@/lib/content";
+import type { Project, ProjectVisual } from "@/lib/content/types";
 import Reveal, { Stagger, StaggerItem } from "./Reveal";
 
 /**
@@ -131,12 +132,14 @@ function Card({ project }: { project: Project }) {
 }
 
 export default function Projects() {
+  const { projects, ui } = useContent();
+
   return (
     <section id="work" className="mx-auto max-w-6xl px-4 py-24 sm:py-32">
       <Reveal>
         <h2 className="heading-section mb-12 flex items-center gap-3">
           <Sparkles className="h-7 w-7 text-accent" />
-          Latest Projects
+          {ui.projectsHeading}
         </h2>
       </Reveal>
 

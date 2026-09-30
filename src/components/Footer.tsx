@@ -3,6 +3,7 @@
 import { Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "./icons";
 import { site } from "@/lib/data";
+import { useContent } from "@/lib/content";
 import Reveal from "./Reveal";
 
 const socials = [
@@ -12,6 +13,8 @@ const socials = [
 ];
 
 export default function Footer() {
+  const { ui } = useContent();
+
   return (
     <footer
       id="contact"
@@ -26,11 +29,12 @@ export default function Footer() {
         {/* Texto colosal */}
         <Reveal>
           <h2 className="text-center text-[min(11vw,7.5rem)] leading-[0.9] font-black tracking-tighter">
-            Lets build{" "}
+            {ui.footerHeading.before}{" "}
             <span className="bg-gradient-to-b from-white to-zinc-600 bg-clip-text text-transparent">
-              incredible
+              {ui.footerHeading.highlight}
             </span>{" "}
-            work together<span className="text-accent">.</span>
+            {ui.footerHeading.after}
+            <span className="text-accent">.</span>
           </h2>
         </Reveal>
 
@@ -53,7 +57,7 @@ export default function Footer() {
             </div>
 
             <p className="text-sm text-zinc-600">
-              © {new Date().getFullYear()} {site.name}. Hecho con Next.js.
+              © {new Date().getFullYear()} {site.name}. {ui.madeWith}
             </p>
           </div>
         </Reveal>

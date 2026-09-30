@@ -3,10 +3,13 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Star } from "lucide-react";
 import { useState } from "react";
-import { faqs, site, testimonials, type Testimonial } from "@/lib/data";
+import { useContent } from "@/lib/content";
+import type { Testimonial } from "@/lib/content/types";
 import Reveal, { Stagger, StaggerItem } from "./Reveal";
 
 function Testimonials() {
+  const { testimonials, ui } = useContent();
+
   // Si no hay testimonios reales, la sección simplemente no se renderiza.
   if (testimonials.length === 0) return null;
 
@@ -39,7 +42,7 @@ function Testimonials() {
     <div className="mb-24">
       <Reveal>
         <h2 className="heading-section mb-10">
-          Hear from the people I worked with
+          {ui.testimonialsHeading}
         </h2>
       </Reveal>
 
@@ -74,6 +77,7 @@ function Testimonials() {
 }
 
 function Faqs() {
+  const { faqs } = useContent();
   const [open, setOpen] = useState<number | null>(0);
 
   return (
@@ -133,13 +137,15 @@ function Faqs() {
 }
 
 export default function SocialProof() {
+  const { site, ui } = useContent();
+
   return (
     <section className="mx-auto max-w-6xl px-4 py-24 sm:py-32">
       <Testimonials />
 
       <div className="grid gap-5 lg:grid-cols-5">
         <Reveal className="lg:col-span-3">
-          <h2 className="heading-section mb-8">Preguntas frecuentes</h2>
+          <h2 className="heading-section mb-8">{ui.faqHeading}</h2>
           <Faqs />
         </Reveal>
 
@@ -152,10 +158,9 @@ export default function SocialProof() {
             />
 
             <div className="relative">
-              <h3 className="heading-card text-white">¿Todavía con dudas?</h3>
+              <h3 className="heading-card text-white">{ui.ctaTitle}</h3>
               <p className="mt-3 leading-relaxed text-zinc-300">
-                Agenda una llamada gratuita de 15 minutos. Revisamos tu idea y
-                te digo con franqueza si puedo ayudarte y cómo.
+                {ui.ctaBody}
               </p>
             </div>
 
@@ -163,7 +168,7 @@ export default function SocialProof() {
               href={site.bookingUrl}
               className="group relative mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 font-semibold text-white transition-[transform,background-color,box-shadow] duration-150 ease-out hover:scale-105 hover:bg-accent-strong hover:shadow-[0_0_36px_-4px_var(--color-accent)] active:scale-95"
             >
-              Book a free discovery call
+              {ui.ctaButton}
               <ArrowRight className="h-4 w-4 transition-transform duration-150 ease-out group-hover:translate-x-1" />
             </a>
           </div>

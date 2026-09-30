@@ -17,7 +17,9 @@ import {
   useSyncExternalStore,
   type CSSProperties,
 } from "react";
-import { services, stack, type Service, type ServiceIcon } from "@/lib/data";
+import { stack } from "@/lib/data";
+import { useContent } from "@/lib/content";
+import type { Service, ServiceIcon } from "@/lib/content/types";
 import Reveal, { EASE_IN_OUT, ITEM, REVEAL, Stagger } from "./Reveal";
 import { TECH_ICONS } from "./tech-icons";
 
@@ -51,21 +53,21 @@ function useIsDesktop() {
 /* --------------------------- columna izquierda --------------------------- */
 
 function LeftColumn({ activeTools }: { activeTools: string[] }) {
+  const { ui } = useContent();
+
   return (
     <div>
       <Reveal>
         <h2 className="heading-statement">
-          What I help you to
+          {ui.servicesHeading.line1}
           <br />
-          <span className="text-accent">Shape...</span>
+          <span className="text-accent">{ui.servicesHeading.line2}</span>
         </h2>
       </Reveal>
 
       <Reveal delay={0.1}>
         <p className="lead mt-6 max-w-md text-zinc-400">
-          No solo escribo código: acompaño el problema desde la definición hasta
-          el deploy. Estas son las cuatro áreas donde puedo mover la aguja de tu
-          proyecto.
+          {ui.servicesLead}
         </p>
       </Reveal>
 
@@ -399,6 +401,8 @@ function RailSegment({
 }
 
 function PinnedStack({ progress }: { progress: MotionValue<number> }) {
+  const { services } = useContent();
+
   return (
     <div className="flex items-center gap-6 lg:translate-x-10">
       {/*
@@ -443,6 +447,7 @@ function PinnedStack({ progress }: { progress: MotionValue<number> }) {
 /* ---------------------- acordeón de clic (móvil) ------------------------ */
 
 function ClickAccordion({ onOpen }: { onOpen: (i: number) => void }) {
+  const { services } = useContent();
   const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
 
   return (
@@ -472,6 +477,7 @@ function ClickAccordion({ onOpen }: { onOpen: (i: number) => void }) {
 /* ------------------------------- sección -------------------------------- */
 
 export default function Services() {
+  const { services } = useContent();
   const pinned = useIsDesktop();
   const ref = useRef<HTMLElement>(null);
 

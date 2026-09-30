@@ -1,7 +1,8 @@
 import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { site } from "@/lib/data";
+import { content } from "@/lib/content/dictionaries";
+import type { Locale } from "@/lib/content/types";
 
 /**
  * Imagen de previsualización para LinkedIn, WhatsApp, Slack y compañía.
@@ -16,10 +17,11 @@ import { site } from "@/lib/data";
  * y el `fontWeight` se ignora, así que el nombre salía en peso normal cuando
  * toda la identidad del sitio es ultra-bold. Se cargan desde @fontsource en
  * formato .woff porque Satori no lee .woff2, que es lo que baja next/font.
+ *
+ * Vive fuera de `app/` porque cada idioma tiene su propio
+ * `opengraph-image.tsx`, y los dos llaman a esta función con su locale.
  */
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
-export const alt = `${site.name} — ${site.role}`;
+export const OG_SIZE = { width: 1200, height: 630 };
 
 const ACCENT = "#e11d48";
 const INK = "#0a0a0a";
@@ -31,7 +33,9 @@ const fontFile = (peso: 400 | 800) =>
     `inter-latin-${peso}-normal.woff`,
   );
 
-export default async function Image() {
+export async function renderOgImage(locale: Locale) {
+  const { site, ui } = content[locale];
+
   // Satori no resuelve rutas del servidor: la imagen entra como data URI.
   const [avatar, interRegular, interBold] = await Promise.all([
     readFile(join(process.cwd(), "public/avatar.png")),
@@ -89,7 +93,7 @@ export default async function Image() {
                 letterSpacing: 2,
               }}
             >
-              DISPONIBLE PARA TRABAJAR
+              {ui.ogAvailable}
             </div>
           </div>
 
@@ -154,7 +158,7 @@ export default async function Image() {
       </div>
     ),
     {
-      ...size,
+      ...OG_SIZE,
       fonts: [
         { name: "Inter", data: interRegular, weight: 400, style: "normal" },
         { name: "Inter", data: interBold, weight: 800, style: "normal" },

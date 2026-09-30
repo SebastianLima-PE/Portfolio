@@ -3,7 +3,8 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Download } from "lucide-react";
 import { useState } from "react";
-import { site } from "@/lib/data";
+import { track } from "@vercel/analytics";
+import { useContent } from "@/lib/content";
 import { EASE_IN_OUT } from "./Reveal";
 
 /**
@@ -22,6 +23,7 @@ export default function RecruiterCV({
   variant?: "inline" | "menu";
   className?: string;
 }) {
+  const { site, ui, htmlLang } = useContent();
   const [open, setOpen] = useState(false);
 
   if (!site.cv) return null;
@@ -40,7 +42,7 @@ export default function RecruiterCV({
             : "rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-medium text-zinc-300 transition-[color,border-color] duration-150 ease-out hover:border-white/25 hover:text-white"
         }
       >
-        ¿Eres reclutador?
+        {ui.recruiterQuestion}
       </button>
 
       {/*
@@ -61,13 +63,21 @@ export default function RecruiterCV({
             <a
               href={site.cv}
               download
+              /*
+                La descarga de un PDF no es una visita de página, así que
+                Analytics no la ve sola: hay que avisarle. Se registra también
+                el idioma para saber si el CV lo bajan desde /en o desde /.
+              */
+              onClick={() =>
+                track("Descarga CV", { idioma: htmlLang, lugar: variant })
+              }
               className={
                 enMenu
                   ? "mt-1 flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-2 text-sm font-bold text-white transition-[transform,background-color] duration-150 ease-out hover:scale-105 hover:bg-accent-strong active:scale-95"
                   : "mt-3 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 font-bold text-white shadow-[0_0_20px_-4px_var(--color-accent)] transition-[transform,background-color,box-shadow] duration-150 ease-out hover:scale-105 hover:bg-accent-strong hover:shadow-[0_0_34px_-2px_var(--color-accent)] active:scale-95"
               }
             >
-              Descargar CV
+              {ui.downloadCv}
               <Download className="h-4 w-4" />
             </a>
           </motion.div>

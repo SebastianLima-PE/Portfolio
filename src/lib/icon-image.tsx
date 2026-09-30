@@ -3,17 +3,17 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
 /**
- * Favicon. Next lo genera en el build, igual que opengraph-image.tsx.
+ * Favicon. Next lo genera en el build, igual que la imagen de Open Graph.
+ * Lo llaman los `icon.tsx` de cada idioma.
  *
  * La marca en el navbar es el nombre seguido de un punto rojo. Un punto suelto
  * a 16px no identifica a nadie, así que el icono invierte la relación: el rojo
  * pasa a ser el fondo —que es lo único que se distingue a ese tamaño— y la
  * inicial va en blanco encima. Se reconoce en una pestaña entre veinte.
  */
-export const size = { width: 64, height: 64 };
-export const contentType = "image/png";
+export const ICON_SIZE = { width: 64, height: 64 };
 
-export default async function Icon() {
+export async function renderIcon() {
   const inter = await readFile(
     join(
       process.cwd(),
@@ -44,7 +44,7 @@ export default async function Icon() {
       </div>
     ),
     {
-      ...size,
+      ...ICON_SIZE,
       fonts: [{ name: "Inter", data: inter, weight: 800, style: "normal" }],
     },
   );

@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import { Mail } from "lucide-react";
-import { about, history, site } from "@/lib/data";
+import { site } from "@/lib/data";
+import { useContent } from "@/lib/content";
 import Reveal from "./Reveal";
 import { GithubIcon, LinkedinIcon } from "./icons";
 
@@ -13,6 +14,8 @@ const socials = [
 ];
 
 export default function About() {
+  const { about, history, site: siteText, ui } = useContent();
+
   return (
     <section id="about" className="mx-auto max-w-6xl px-4 py-24 sm:py-32">
       <Reveal>
@@ -29,7 +32,7 @@ export default function About() {
           <div className="flex h-full flex-col">
             <div className="relative aspect-3/4 w-full overflow-hidden rounded-[2rem] bg-accent">
               <Image
-                src={about.photo}
+                src={site.photo}
                 alt={site.name}
                 fill
                 sizes="(max-width: 1024px) 100vw, 40vw"
@@ -45,7 +48,7 @@ export default function About() {
             <div className="mt-6 flex items-end justify-between gap-4">
               <div>
                 <h3 className="heading-card text-white">{site.name}</h3>
-                <p className="mt-1 text-sm text-zinc-400">{site.role}</p>
+                <p className="mt-1 text-sm text-zinc-400">{siteText.role}</p>
               </div>
 
               <div className="flex gap-2">
@@ -80,7 +83,7 @@ export default function About() {
             {/* Separador: marca dónde termina la bio y empieza la trayectoria */}
             <div className="my-8 h-px w-full bg-white/5" />
 
-            <h3 className="text-sm font-semibold text-zinc-500">Trayectoria</h3>
+            <h3 className="text-sm font-semibold text-zinc-500">{ui.historyHeading}</h3>
 
             <ol className="mt-7 space-y-7">
               {history.map((job, i) => (

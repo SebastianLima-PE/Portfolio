@@ -4,15 +4,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useState, useSyncExternalStore } from "react";
 import Image from "next/image";
-import { about, site } from "@/lib/data";
+import { site } from "@/lib/data";
+import { useContent } from "@/lib/content";
 import { EASE_OUT } from "./Reveal";
 import RecruiterCV from "./RecruiterCV";
-
-const links = [
-  { label: "Work", href: "#work" },
-  { label: "Services", href: "#services" },
-  { label: "Contact", href: "#contact" },
-];
 
 /**
  * Suscripción nativa al scroll. Antes esto usaba `useScroll` de Framer, pero
@@ -44,12 +39,14 @@ function Logo() {
 }
 
 function BookButton({ className = "" }: { className?: string }) {
+  const { site: siteText, ui } = useContent();
+
   return (
     <a
-      href={site.bookingUrl}
+      href={siteText.bookingUrl}
       className={`rounded-full bg-accent px-4 py-2 text-sm font-bold text-white shadow-[0_0_15px_-3px_var(--color-accent)] transition-[transform,background-color,box-shadow] duration-150 ease-out hover:scale-105 hover:bg-accent-strong hover:shadow-[0_0_30px_-2px_var(--color-accent)] active:scale-95 sm:px-5 ${className}`}
     >
-      Book a call
+      {ui.bookCall}
     </a>
   );
 }
@@ -59,7 +56,30 @@ function BookButton({ className = "" }: { className?: string }) {
  * menú abierto muere con él. Si el estado viviera en el padre, el menú
  * reaparecería abierto al volver a bajar.
  */
+/**
+ * Enlace simple y no un selector: con dos idiomas, un desplegable es un clic
+ * de más. Cambiar de idioma recarga la página entera porque cada idioma tiene
+ * su propio layout raíz (para que <html lang> sea el correcto), y está bien:
+ * es algo que se hace una vez por visita.
+ */
+function LanguageSwitch() {
+  const { ui } = useContent();
+  const { label, href, ariaLabel } = ui.switchLanguage;
+
+  return (
+    <a
+      href={href}
+      hrefLang={href === "/" ? "es" : "en"}
+      aria-label={ariaLabel}
+      className="flex h-9 items-center rounded-full border border-white/10 bg-white/5 px-3 text-xs font-bold tracking-wider text-zinc-400 backdrop-blur-md transition-[color,border-color] duration-150 ease-out hover:border-white/25 hover:text-white"
+    >
+      {label}
+    </a>
+  );
+}
+
 function CompactNav() {
+  const { ui } = useContent();
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -74,7 +94,7 @@ function CompactNav() {
         {/* Misma idea que la tarjeta de "Sobre mí": foto sobre fondo rojo */}
         <span className="relative h-8 w-8 shrink-0 overflow-hidden rounded-full bg-accent">
           <Image
-            src={about.photo}
+            src={site.photo}
             alt=""
             fill
             sizes="32px"
@@ -88,7 +108,7 @@ function CompactNav() {
           type="button"
           onClick={() => setMenuOpen((v) => !v)}
           aria-expanded={menuOpen}
-          aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
+          aria-label={menuOpen ? ui.closeMenu : ui.openMenu}
           className="ml-1 flex h-8 w-8 items-center justify-center rounded-full bg-white/5 text-zinc-300 transition-colors hover:bg-accent hover:text-white"
         >
           {menuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
@@ -119,6 +139,7 @@ function CompactNav() {
 
 export default function Navbar() {
   const scrolled = useScrolled();
+  const { ui } = useContent();
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:pt-6">
@@ -143,7 +164,7 @@ export default function Navbar() {
               <Logo />
 
               <div className="hidden items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2 py-1.5 backdrop-blur-md md:flex">
-                {links.map((link) => (
+                {ui.nav.map((link) => (
                   <a
                     key={link.href}
                     href={link.href}
@@ -154,7 +175,10 @@ export default function Navbar() {
                 ))}
               </div>
 
-              <BookButton />
+              <div className="flex items-center gap-2">
+                <LanguageSwitch />
+                <BookButton />
+              </div>
             </motion.nav>
           )}
         </AnimatePresence>

@@ -6,7 +6,8 @@ import Projects from "@/components/Projects";
 import Services from "@/components/Services";
 import SocialProof from "@/components/SocialProof";
 
-export default function Home() {
+/** La página es la misma en los dos idiomas; los textos llegan por contexto. */
+export default function HomePage() {
   return (
     <>
       <Navbar />
