@@ -1,179 +1,120 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, Star } from "lucide-react";
 import { useState } from "react";
 import { useContent } from "@/lib/content";
-import type { Testimonial } from "@/lib/content/types";
-import Reveal, { Stagger, StaggerItem } from "./Reveal";
+import Reveal, { EASE_IN_OUT, Stagger, StaggerItem } from "./Reveal";
 
+/**
+ * Con dos testimonios no hace falta un carrusel: van fijos, uno al lado del
+ * otro, y se leen de un vistazo. Si no hay ninguno, la parte no se dibuja.
+ */
 function Testimonials() {
   const { testimonials, ui } = useContent();
 
-  // Si no hay testimonios reales, la sección simplemente no se renderiza.
   if (testimonials.length === 0) return null;
-
-  /*
-    El marquee necesita que cada grupo sea más ancho que la pantalla, o se ve
-    el hueco entre repeticiones. Con 3 testimonios eso no se cumple, así que
-    repetimos la lista hasta juntar al menos 4 tarjetas por grupo.
-  */
-  const repeticiones = Math.max(2, Math.ceil(4 / testimonials.length));
-  const grupo = Array.from({ length: repeticiones }, () => testimonials).flat();
-
-  const Tarjeta = ({ t }: { t: Testimonial }) => (
-    <figure className="flex w-[min(88vw,26rem)] shrink-0 flex-col rounded-[2rem] border border-white/5 bg-zinc-900/40 p-8 backdrop-blur-sm">
-      <div className="flex gap-1">
-        {Array.from({ length: 5 }).map((_, s) => (
-          <Star key={s} className="h-4 w-4 fill-accent text-accent" />
-        ))}
-      </div>
-      <blockquote className="mt-5 flex-1 leading-relaxed text-zinc-300">
-        {t.quote}
-      </blockquote>
-      <figcaption className="mt-6 border-t border-white/5 pt-5">
-        <p className="font-semibold text-white">{t.author}</p>
-        <p className="text-sm text-zinc-500">{t.role}</p>
-      </figcaption>
-    </figure>
-  );
 
   return (
     <div className="mb-24">
       <Reveal>
-        <h2 className="heading-section mb-10">
-          {ui.testimonialsHeading}
-        </h2>
+        <h2 className="eyebrow mb-8 text-muted">{ui.testimonialsHeading}</h2>
       </Reveal>
 
-      {/* group/marquee: pausa la cinta al pasar el cursor por encima */}
-      <div className="marquee-viewport group/marquee relative -mx-4 overflow-hidden px-4">
-        <div className="marquee-track flex w-max animate-marquee group-hover/marquee:[animation-play-state:paused]">
-          <div className="flex shrink-0 gap-5 pr-5">
-            {grupo.map((t, i) => (
-              <Tarjeta key={`a-${i}`} t={t} />
-            ))}
-          </div>
-          {/* Copia exacta: es lo que hace que el salto sea invisible */}
-          <div className="flex shrink-0 gap-5 pr-5" aria-hidden>
-            {grupo.map((t, i) => (
-              <Tarjeta key={`b-${i}`} t={t} />
-            ))}
-          </div>
-        </div>
-
-        {/* Desvanecido en los bordes para que las tarjetas no se corten en seco */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-ink to-transparent"
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-ink to-transparent"
-        />
-      </div>
+      <Stagger className="grid gap-3 md:grid-cols-2">
+        {testimonials.map((t) => (
+          <StaggerItem key={t.author}>
+            <figure className="flex h-full flex-col rounded-2xl bg-white p-8 sm:p-10">
+              <span aria-hidden className="font-display text-6xl leading-none text-accent">
+                “
+              </span>
+              <blockquote className="mt-2 flex-1 text-lg leading-relaxed font-medium">
+                {t.quote}
+              </blockquote>
+              <figcaption className="mt-8 border-t border-dashed border-ink/20 pt-5">
+                <p className="font-semibold">{t.author}</p>
+                <p className="text-sm text-muted">{t.role}</p>
+              </figcaption>
+            </figure>
+          </StaggerItem>
+        ))}
+      </Stagger>
     </div>
   );
 }
 
 function Faqs() {
-  const { faqs } = useContent();
+  const { faqs, ui } = useContent();
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <Stagger className="flex flex-col gap-3" delayChildren={0.1}>
-      {faqs.map((faq, i) => {
-        const isOpen = open === i;
+    <div className="grid gap-10 lg:grid-cols-5">
+      <Reveal className="lg:col-span-2">
+        <h2 className="heading-display text-[clamp(3rem,7vw,5.5rem)]">
+          {ui.faqHeading}
+        </h2>
+      </Reveal>
 
-        return (
-          <StaggerItem
-            key={faq.q}
-            className="overflow-hidden rounded-[1.75rem] border border-white/5 bg-zinc-900/40 backdrop-blur-sm"
-          >
-            <button
-              type="button"
-              onClick={() => setOpen(isOpen ? null : i)}
-              aria-expanded={isOpen}
-              className="flex w-full items-center justify-between gap-4 p-6 text-left"
+      <Stagger className="lg:col-span-3" delayChildren={0.1}>
+        {faqs.map((faq, i) => {
+          const isOpen = open === i;
+
+          return (
+            <StaggerItem
+              key={faq.q}
+              className="border-t border-dashed border-ink/25 last:border-b"
             >
-              <span className="font-semibold text-white">{faq.q}</span>
-              {/*
-                Dos barras en vez de intercambiar iconos: la vertical rota 90 y
-                se funde con la horizontal, asi el + se convierte en - sin corte.
-              */}
-              <span
-                className={`relative flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-colors duration-300 ${
-                  isOpen ? "bg-accent text-white" : "bg-white/5 text-zinc-400"
-                }`}
+              <button
+                type="button"
+                onClick={() => setOpen(isOpen ? null : i)}
+                aria-expanded={isOpen}
+                className="flex w-full items-center justify-between gap-4 py-6 text-left"
               >
-                <span className="absolute h-0.5 w-3 rounded-full bg-current" />
+                <span className="text-lg font-semibold">{faq.q}</span>
+                {/*
+                  Dos barras en vez de intercambiar iconos: la vertical rota 90
+                  y se funde con la horizontal, así el + se convierte en - sin corte.
+                */}
                 <span
-                  className={`absolute h-3 w-0.5 rounded-full bg-current transition-transform duration-300 ease-out ${
-                    isOpen ? "rotate-90" : "rotate-0"
+                  className={`relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-colors duration-300 ${
+                    isOpen ? "bg-ink text-white" : "bg-white"
                   }`}
-                />
-              </span>
-            </button>
-
-            <AnimatePresence initial={false}>
-              {isOpen && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.25, ease: [0.77, 0, 0.175, 1] }}
                 >
-                  <p className="px-6 pb-6 text-[15px] leading-relaxed text-zinc-400">
-                    {faq.a}
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </StaggerItem>
-        );
-      })}
-    </Stagger>
+                  <span className="absolute h-0.5 w-3 rounded-full bg-current" />
+                  <span
+                    className={`absolute h-3 w-0.5 rounded-full bg-current transition-transform duration-300 ease-out ${
+                      isOpen ? "rotate-90" : "rotate-0"
+                    }`}
+                  />
+                </span>
+              </button>
+
+              <AnimatePresence initial={false}>
+                {isOpen && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.25, ease: EASE_IN_OUT }}
+                  >
+                    <p className="max-w-2xl pb-6 leading-relaxed text-ink/75">
+                      {faq.a}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </StaggerItem>
+          );
+        })}
+      </Stagger>
+    </div>
   );
 }
 
 export default function SocialProof() {
-  const { site, ui } = useContent();
-
   return (
-    <section className="mx-auto max-w-6xl px-4 py-24 sm:py-32">
+    <section className="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
       <Testimonials />
-
-      <div className="grid gap-5 lg:grid-cols-5">
-        <Reveal className="lg:col-span-3">
-          <h2 className="heading-section mb-8">{ui.faqHeading}</h2>
-          <Faqs />
-        </Reveal>
-
-        {/* CTA destacado */}
-        <Reveal delay={0.12} className="lg:col-span-2">
-          <div className="relative flex h-full flex-col justify-between overflow-hidden rounded-[2rem] border border-accent/30 bg-gradient-to-br from-accent/20 via-zinc-900/40 to-zinc-900/40 p-8 backdrop-blur-sm">
-            <div
-              aria-hidden
-              className="pointer-events-none absolute -top-16 -right-16 h-48 w-48 rounded-full bg-accent/25 blur-3xl"
-            />
-
-            <div className="relative">
-              <h3 className="heading-card text-white">{ui.ctaTitle}</h3>
-              <p className="mt-3 leading-relaxed text-zinc-300">
-                {ui.ctaBody}
-              </p>
-            </div>
-
-            <a
-              href={site.bookingUrl}
-              className="group relative mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 font-semibold text-white transition-[transform,background-color,box-shadow] duration-150 ease-out hover:scale-105 hover:bg-accent-strong hover:shadow-[0_0_36px_-4px_var(--color-accent)] active:scale-95"
-            >
-              {ui.ctaButton}
-              <ArrowRight className="h-4 w-4 transition-transform duration-150 ease-out group-hover:translate-x-1" />
-            </a>
-          </div>
-        </Reveal>
-      </div>
+      <Faqs />
     </section>
   );
 }

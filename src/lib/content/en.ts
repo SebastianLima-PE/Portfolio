@@ -5,118 +5,154 @@
  * de fuera del Perú, así que explica lo que allá no se da por sabido (qué es
  * la UPC, qué es el MINSA, qué significa "décimo superior").
  */
-import { bookingUrl, cv, projectMeta, serviceMeta } from "../data";
+import { contactUrl, cv, projectMeta } from "../data";
 import type { Content } from "./types";
 
 export const en: Content = {
   htmlLang: "en",
   ogLocale: "en_US",
   metaDescription:
-    "Sebastián Pariachi, software engineering student in Lima, Peru. I " +
-    "automate repetitive work, turn data into decisions, and build the full " +
-    "software behind it, from data model to UI.",
+    "Sebastian Pariachi, software engineering student in Lima, Peru, looking " +
+    "for an internship. End-to-end web and mobile development with a " +
+    "strength in data: SQL, Power BI and automation.",
 
   site: {
-    role: "Automation, Data Analytics & AI",
-    bookingUrl: bookingUrl("Book a call"),
+    role: "Software Engineering · Data & Development",
+    contactUrl: contactUrl("Internship"),
     cv: cv.en,
   },
 
   hero: {
-    lineOne: "BUILD",
-    lineTwo: "SOFTWARE",
+    kicker: ["Software Engineering · UPC", "Looking for an internship"],
     tagline:
-      "I automate repetitive work and turn data into decisions. And I build the full software behind it, from the data model to the interface.",
+      "7th-semester student, top 10% of my class. I build software end to end —web, mobile and APIs— and my strength is data: SQL, Power BI and automation that turn information into decisions.",
     badges: [
-      { label: "Power BI & Automate", icon: "Power BI" },
-      { label: "Python & AI", icon: "Python" },
+      { label: "SQL & Power BI", icon: "Power BI" },
+      { label: "Python", icon: "Python" },
       { label: "React & Node.js", icon: "React" },
-      { label: "Full Stack" },
+      { label: "Kotlin & Flutter", icon: "Kotlin" },
     ],
-    cta: "Book a call",
   },
 
   projects: [
     {
-      ...projectMeta.fintu,
+      ...projectMeta.ferovaClinic,
+      category: "Data · Public health",
+      year: "2026",
       description:
-        "SaaS with a REST API, JWT authentication and PayPal subscriptions. Shipped with CI/CD.",
-      tags: ["Node.js", "Express", "React", "MySQL", "PayPal"],
+        "Dashboard for Peru's Ministry of Health (MINSA) facilities that follows childhood anemia treatment: per-patient risk scoring, a predictive dropout score and a district-level view. One of the two apps in the Ferova system, both connected to a TypeScript backend with a REST API documented in Swagger.",
+      highlights: [
+        { value: "19/20", label: "project grade" },
+        { value: "80%", label: "target reach of mothers" },
+        { value: "5", label: "tracking modules" },
+      ],
+      tags: ["Flutter", "TypeScript", "REST API", "Swagger", "Prediction"],
+    },
+    {
+      ...projectMeta.fintu,
+      category: "Full Stack · Personal project",
+      year: "2026",
+      description:
+        "SaaS platform that brings credit card management for the Peruvian market into one place. Spending summaries come from SQL aggregation queries, auth runs on JWT, and every push to main deploys itself through GitHub Actions.",
+      highlights: [
+        { value: "93%", label: "less time to production" },
+        { value: "CI/CD", label: "GitHub Actions + Cloudflare Pages" },
+      ],
+      tags: ["React", "Node.js", "Express", "MySQL", "JWT"],
     },
     {
       ...projectMeta.ferovaFamily,
+      category: "Mobile · Native Android",
+      year: "2026",
       description:
-        "Native Android app for families to track a child's daily anemia treatment.",
-      tags: ["Kotlin", "Android"],
-    },
-    {
-      ...projectMeta.ferovaClinic,
-      description:
-        "Dashboard for Peru's Ministry of Health with risk scoring, dropout prediction and district-level views.",
-      tags: ["Flutter", "Prediction", "Dashboard"],
+        "The family-facing app of the Ferova system: daily tracking of doses, nutrition and treatment adherence, teleconsultations and geolocation of the nearest facility. Built as a team with Scrum, branches and code reviews.",
+      highlights: [
+        { value: "2", label: "apps sharing one backend" },
+        { value: "Kotlin", label: "native Android" },
+      ],
+      tags: ["Kotlin", "Android", "REST API"],
     },
     {
       ...projectMeta.candela,
+      category: "AI · Client project",
+      year: "2026",
       description:
-        "Client project, live in production. OpenAI API on mobile: vision and text generation with tone control.",
+        "Mobile app built for a client and live in production. It uses the OpenAI API to analyze images and generate text with tone control.",
+      highlights: [
+        { value: "Live", label: "in production for a client" },
+        { value: "Vision + text", label: "with the OpenAI API" },
+      ],
       tags: ["OpenAI API", "Vision", "Generative AI"],
     },
   ],
 
-  services: [
+  skills: [
     {
-      ...serviceMeta.automation,
-      title: "Process Automation",
-      body: "Every task someone repeats by hand each week is time you can get back. I find the bottleneck, automate it, and document the flow so your team can maintain it without depending on me.",
-      skills: ["Power Automate", "Python", "Excel", "REST APIs"],
+      title: "Data & BI",
+      body: "From raw data to a decision. SQL aggregation queries, data modeling, Power BI dashboards with Power Query and DAX, and advanced Excel. I start from the business question and pick the chart after.",
+      tools: ["SQL", "Power BI", "DAX", "Power Query", "Excel", "Python"],
+      featured: true,
     },
     {
-      ...serviceMeta.data,
-      title: "Data Analytics & BI",
-      body: "From raw data to a dashboard people actually use to make decisions. Cleaning, modeling and visualization focused on the business question, not on a pretty chart.",
-      skills: ["Power BI", "SQL", "Pandas", "Data modeling"],
+      title: "Web development",
+      body: "React interfaces wired to my own REST APIs in Node.js and Express, with JWT authentication and relational databases.",
+      tools: ["React", "TypeScript", "Node.js", "Express", "MySQL"],
     },
     {
-      ...serviceMeta.ai,
-      title: "AI Integration",
-      body: "Models put to work inside a product, not left in a notebook: inference built into the app, per-request cost control, and output you can actually trust.",
-      skills: ["Python", "Generative AI", "LLM APIs", "scikit-learn"],
+      title: "Mobile development",
+      body: "Native Android apps in Kotlin and cross-platform apps in Flutter, consuming the same backend as the web version.",
+      tools: ["Kotlin", "Flutter", "REST API"],
     },
     {
-      ...serviceMeta.fullstack,
-      title: "Full Stack Development",
-      body: "The foundation everything else runs on: well-designed APIs, authentication, databases that hold up, and web and mobile interfaces connected to them.",
-      skills: ["React", "Next.js", "Node.js", "MySQL", "Kotlin", "Flutter"],
+      title: "Automation & AI",
+      body: "Flows that replace repetitive manual work, and AI models integrated into a real app, not just a notebook.",
+      tools: ["Power Automate", "Power Apps", "Python", "OpenAI API"],
+    },
+    {
+      title: "How I work",
+      body: "Git with branches and code reviews, continuous deployment, containers and Scrum. The things that let a team pick up what I leave behind.",
+      tools: ["Git", "GitHub Actions", "Docker", "Scrum", "DDD"],
     },
   ],
 
   about: {
-    headline: {
-      line1: "I automate the repetitive",
-      line2: "and make data speak.",
-    },
     paragraphs: [
-      "I'm Sebastián Pariachi, a 7th-semester Software Engineering student at UPC (Universidad Peruana de Ciencias Aplicadas) in Lima, ranked in the top 10% of my class. I work across automation, data analytics and AI, backed by a solid full stack foundation that lets me build the whole solution, not just one piece of it.",
-      "I've shipped a fintech SaaS to production with a payment gateway and CI/CD, and a system of two connected mobile apps for treating childhood anemia, designed for Peru's Ministry of Health (MINSA) facilities. I work with DDD, layered architecture and Scrum.",
+      "I'm Sebastian Pariachi, a 7th-semester Software Engineering student at UPC (Universidad Peruana de Ciencias Aplicadas) in Lima, ranked in the top 10% of my class. I like building the whole solution, from the data model to the interface, and my favorite moment is when the data answers a question nobody could answer before.",
+      "I'm looking for an internship on a team where I can contribute from the first month and keep learning. Data is my strength, but I'm comfortable in web, mobile or automation work: what matters is the problem to solve.",
     ],
   },
 
   history: [
     {
-      role: "Full Stack Developer — Freelance",
-      company: "FinTú Co. and personal projects",
+      role: "Full Stack Developer",
+      company: "FinTú Co. (personal project) and Candela IA (client)",
       period: "2026 — Present",
     },
     {
-      role: "University project development",
-      company: "UPC — Ferova, mobile system for Peru's Ministry of Health",
-      period: "2026",
+      role: "Full Stack Mobile Developer",
+      company: "UPC — Ferova project, system for Peru's Ministry of Health",
+      period: "Mar — Jul 2026",
+    },
+    {
+      role: "Operations Assistant",
+      company: "Saga Falabella — inventory of 500+ SKUs during peak season",
+      period: "Mar — Apr 2025",
     },
     {
       role: "B.S. Software Engineering",
       company: "UPC — 7th semester, top 10% of class",
       period: "2023 — 2028",
     },
+  ],
+
+  certifications: [
+    { name: "Data Analytics for Machine Learning", issuer: "IBM SkillsBuild", date: "Sep 2026" },
+    { name: "SQL (Advanced)", issuer: "HackerRank", date: "Aug 2026" },
+    { name: "Fundamentals of ML and AI", issuer: "AWS Training", date: "Jul 2026" },
+    { name: "Python for Everybody", issuer: "University of Michigan · Coursera", date: "Jun 2026" },
+    { name: "Prompt Design in Vertex AI", issuer: "Google Cloud", date: "May 2026" },
+    { name: "Google IT Support", issuer: "Google · Coursera", date: "Apr 2026" },
+    { name: "Power BI Intensive (32 h)", issuer: "IDAT · Intercorp", date: "Mar 2026" },
   ],
 
   /**
@@ -127,44 +163,44 @@ export const en: Content = {
   testimonials: [
     {
       quote:
-        "The work was flawless from start to finish, and every delivery arrived on the agreed date.",
-      author: "Adrián T.",
-      role: "Client, Candela IA",
-    },
-    {
-      quote:
         "He contributed consistently to the project's progress and stood out for his perseverance. A reliable person, the kind you can delegate to with peace of mind.",
       author: "Ferova Team",
       role: "Project team, UPC",
+    },
+    {
+      quote:
+        "The work was flawless from start to finish, and every delivery arrived on the agreed date.",
+      author: "Adrián T.",
+      role: "Client, Candela IA",
     },
   ],
 
   faqs: [
     {
-      q: "Do you work on projects or as part of a team?",
-      a: "Both. I built FinTú end to end on my own, and Candela IA was a client engagement. Ferova, on the other hand, was a university team working with Scrum, branches and code reviews. I adapt to the workflow that's already in place instead of imposing mine.",
+      q: "What kind of internship are you looking for?",
+      a: "A software development, data or automation internship. Data is my strength, but I'm not limited to BI: I'm interested in any team where I can contribute and learn, whether backend, frontend, mobile or analytics.",
     },
     {
       q: "What's your availability?",
-      a: "I'm in my 7th semester of Software Engineering, so I plan work around my classes. For joining a team, part-time; for a one-off project, it depends on the scope, and we agree on it before starting, not along the way. I'm based in Lima (GMT-5) and work remotely.",
+      a: "I'm in my 7th semester of Software Engineering and plan my hours around classes. I'm based in Lima, Peru (GMT-5), and can work on-site, hybrid or remote.",
     },
     {
-      q: "How do you approach a project from scratch?",
-      a: "First I understand the problem and who it hurts. Then I define the smallest scope that already delivers value, build it, and get it into production fast. From there I iterate with real feedback instead of assumptions.",
+      q: "Have you worked on a team?",
+      a: "Yes. Ferova was a university team working with Scrum, branches and code reviews, and Candela IA was a real client engagement with delivery dates. FinTú I built on my own, end to end.",
     },
     {
-      q: "What do you leave behind when you're done?",
-      a: "Documented code and a configured deployment so anyone can pick it up without depending on me. In FinTú, for example, every push to main triggers the deploy on its own. Ongoing maintenance, if needed, is agreed separately.",
+      q: "What would you bring from day one?",
+      a: "I've already taken projects to production, so I know the full cycle: Git, APIs, databases and deployment. I can take on real tasks in the first weeks, and I ask when I don't know something instead of guessing.",
     },
   ],
 
   ui: {
     nav: [
       { label: "Work", href: "#work" },
-      { label: "Services", href: "#services" },
+      { label: "Skills", href: "#skills" },
+      { label: "About", href: "#about" },
       { label: "Contact", href: "#contact" },
     ],
-    bookCall: "Book a call",
     openMenu: "Open menu",
     closeMenu: "Close menu",
     switchLanguage: {
@@ -172,27 +208,24 @@ export const en: Content = {
       href: "/",
       ariaLabel: "Ver el portafolio en español",
     },
-    avatarAlt: "3D avatar of Sebastián",
-    available: "Available for work",
-    projectsHeading: "Latest Projects",
-    servicesHeading: { line1: "What I help you", line2: "Shape..." },
-    servicesLead:
-      "I don't just write code: I stay with the problem from definition to deployment. These are the four areas where I can move the needle on your project.",
+    photoAlt: "Sebastian Pariachi",
+    available: "Open to internships",
+    scrollDown: "Scroll",
+    projectsHeading: "Projects",
+    projectsLead: "Open a project to see what I built and what it achieved.",
+    viewProject: "View project",
+    skillsHeading: "What I do",
+    skillsLead: "End-to-end development, with data as my strength.",
+    strength: "My strength",
+    aboutHeading: "About",
     historyHeading: "Experience",
+    certificationsHeading: "Certifications",
     testimonialsHeading: "Hear from the people I worked with",
     faqHeading: "Frequently asked questions",
-    ctaTitle: "Still have questions?",
-    ctaBody:
-      "Book a free 15-minute call. We'll go over your idea and I'll tell you honestly whether I can help, and how.",
-    ctaButton: "Book a free discovery call",
-    footerHeading: {
-      before: "Let's build",
-      highlight: "incredible",
-      after: "work together",
-    },
+    footerHeading: ["Got a spot", "on your team?"],
+    footerButton: "Send me a message",
     madeWith: "Built with Next.js.",
-    recruiterQuestion: "Are you a recruiter?",
     downloadCv: "Download CV",
-    ogAvailable: "AVAILABLE FOR WORK",
+    ogAvailable: "OPEN TO INTERNSHIPS",
   },
 };

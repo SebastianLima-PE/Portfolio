@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Anton, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "../app/globals.css";
 import { ContentProvider } from "@/lib/content";
@@ -10,6 +10,14 @@ import { site } from "@/lib/data";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+/* Condensada de los titulares gigantes. Solo existe en peso 400. */
+const anton = Anton({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-anton",
   display: "swap",
 });
 
@@ -40,8 +48,8 @@ export function buildMetadata(locale: Locale): Metadata {
     title,
     description: metaDescription,
     // Genera <meta name="author">, que es lo que LinkedIn buscaba y no encontro
-    authors: [{ name: "Sebastián Pariachi Limahuaya", url: site.linkedin }],
-    creator: "Sebastián Pariachi Limahuaya",
+    authors: [{ name: "Sebastian Pariachi Limahuaya", url: site.linkedin }],
+    creator: "Sebastian Pariachi Limahuaya",
     /*
       hreflang: le dice a Google que "/" y "/en" son la misma página en dos
       idiomas. Sin esto las trata como contenido duplicado y puede mostrar la
@@ -78,8 +86,11 @@ export default function RootShell({
   children: React.ReactNode;
 }) {
   return (
-    <html lang={content[locale].htmlLang} className={inter.variable}>
-      <body className="bg-ink font-sans text-white antialiased">
+    <html
+      lang={content[locale].htmlLang}
+      className={`${inter.variable} ${anton.variable}`}
+    >
+      <body className="bg-paper font-sans text-ink antialiased">
         <ContentProvider locale={locale}>{children}</ContentProvider>
         {/*
           Visitas, países, dispositivos y de dónde llega la gente (LinkedIn,

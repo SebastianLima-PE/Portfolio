@@ -2,36 +2,32 @@
 export const LOCALES = ["es", "en"] as const;
 export type Locale = (typeof LOCALES)[number];
 
-/** Textura de respaldo mientras no haya mockup real */
-export type ProjectVisual = "mesh" | "rings" | "diagonal" | "dots";
-
 export type Project = {
   title: string;
+  /** Va a la derecha de la fila: qué tipo de trabajo fue */
+  category: string;
+  year: string;
   description: string;
+  /**
+   * Los números que un reclutador recuerda. Van grandes al abrir la fila,
+   * antes que la descripción: son lo que diferencia un proyecto de otro.
+   */
+  highlights: { value: string; label: string }[];
   tags: string[];
-  /** Ruta dentro de /public — ej. "/projects/fintu.png". Si existe, gana sobre `visual` */
-  image?: string;
-  /** Patrón CSS que se dibuja cuando todavía no hay `image` */
-  visual: ProjectVisual;
+  /** Ruta dentro de /public — ej. "/projects/fintu.png" */
+  image: string;
   href?: string;
-  /** Clases de grid: define la asimetría del bento */
-  className: string;
 };
 
-/** Clave del icono; el componente la traduce a un icono de lucide */
-export type ServiceIcon = "automation" | "data" | "ai" | "fullstack";
-
-export type Service = {
+/**
+ * Áreas de "Lo que sé hacer". `featured` marca la fortaleza: sale primero y
+ * con más peso visual, sin que las demás desaparezcan.
+ */
+export type Skill = {
   title: string;
-  icon: ServiceIcon;
   body: string;
-  skills: string[];
-  /**
-   * Nombres exactos de `stack` que esta area enciende en la columna
-   * izquierda. Es una lista explicita y no una coincidencia por texto: asi
-   * decides tu que se ilumina, y anadir una herramienta no rompe nada.
-   */
   tools: string[];
+  featured?: boolean;
 };
 
 export type Job = {
@@ -62,54 +58,55 @@ export type Content = {
 
   site: {
     role: string;
-    /** Destino de los CTA "Agendar una llamada" */
-    bookingUrl: string;
+    /** Destino del botón "Escríbeme" */
+    contactUrl: string;
     /** PDF del CV. Vacío = el botón no se muestra */
     cv: string;
   };
 
   hero: {
-    lineOne: string;
-    lineTwo: string;
+    /** Las dos líneas de texto pequeño arriba a la izquierda */
+    kicker: [string, string];
     tagline: string;
     badges: { label: string; icon?: string }[];
-    cta: string;
   };
 
   projects: Project[];
-  services: Service[];
+  skills: Skill[];
 
   about: {
-    headline: { line1: string; line2: string };
     paragraphs: string[];
   };
 
   history: Job[];
+  certifications: { name: string; issuer: string; date: string }[];
   testimonials: Testimonial[];
   faqs: Faq[];
 
   /** Textos de interfaz que antes vivían escritos dentro de los componentes */
   ui: {
     nav: { label: string; href: string }[];
-    bookCall: string;
     openMenu: string;
     closeMenu: string;
     /** Enlace al otro idioma */
     switchLanguage: { label: string; href: string; ariaLabel: string };
-    avatarAlt: string;
+    photoAlt: string;
     available: string;
+    scrollDown: string;
     projectsHeading: string;
-    servicesHeading: { line1: string; line2: string };
-    servicesLead: string;
+    projectsLead: string;
+    viewProject: string;
+    skillsHeading: string;
+    skillsLead: string;
+    strength: string;
+    aboutHeading: string;
     historyHeading: string;
+    certificationsHeading: string;
     testimonialsHeading: string;
     faqHeading: string;
-    ctaTitle: string;
-    ctaBody: string;
-    ctaButton: string;
-    footerHeading: { before: string; highlight: string; after: string };
+    footerHeading: [string, string];
+    footerButton: string;
     madeWith: string;
-    recruiterQuestion: string;
     downloadCv: string;
     ogAvailable: string;
   };

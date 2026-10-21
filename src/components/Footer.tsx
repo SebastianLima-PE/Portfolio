@@ -1,76 +1,87 @@
 "use client";
 
-import { Mail } from "lucide-react";
+import { ArrowUpRight, Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "./icons";
 import { site } from "@/lib/data";
 import { useContent } from "@/lib/content";
+import CvButton from "./CvButton";
 import Reveal from "./Reveal";
 
 const socials = [
-  { label: "GitHub", href: site.github, Icon: GithubIcon },
   { label: "LinkedIn", href: site.linkedin, Icon: LinkedinIcon },
+  { label: "GitHub", href: site.github, Icon: GithubIcon },
   { label: "Email", href: `mailto:${site.email}`, Icon: Mail },
 ];
 
 export default function Footer() {
-  const { ui } = useContent();
+  const { site: siteText, ui } = useContent();
 
   return (
     <footer
       id="contact"
-      className="relative mt-16 overflow-hidden border-t border-white/5 pt-24"
+      className="mx-3 mb-3 scroll-mt-24 overflow-hidden rounded-[2rem] bg-paper-soft px-5 pt-20 pb-6 sm:mx-5 sm:mb-5 sm:px-10 sm:pt-28"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-24 left-1/2 h-72 w-[40rem] -translate-x-1/2 rounded-full bg-accent/10 blur-[120px]"
-      />
+      <div className="mx-auto max-w-7xl">
+        <Reveal className="flex flex-col gap-10 md:flex-row md:items-center md:justify-between">
+          <div className="flex items-start gap-4 sm:gap-6">
+            <ArrowUpRight
+              aria-hidden
+              strokeWidth={2.5}
+              className="h-14 w-14 shrink-0 sm:h-24 sm:w-24"
+            />
+            <h2 className="text-[clamp(2.25rem,6vw,4.5rem)] leading-[1.02] font-semibold tracking-tight uppercase">
+              {ui.footerHeading[0]}
+              <br />
+              {ui.footerHeading[1]}
+            </h2>
+          </div>
 
-      <div className="relative mx-auto max-w-6xl px-4">
-        {/* Texto colosal */}
-        <Reveal>
-          <h2 className="text-center text-[min(11vw,7.5rem)] leading-[0.9] font-black tracking-tighter">
-            {ui.footerHeading.before}{" "}
-            <span className="bg-gradient-to-b from-white to-zinc-600 bg-clip-text text-transparent">
-              {ui.footerHeading.highlight}
-            </span>{" "}
-            {ui.footerHeading.after}
-            <span className="text-accent">.</span>
-          </h2>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href={siteText.contactUrl}
+              className="inline-flex items-center gap-2 rounded-full border border-ink/80 px-6 py-3 font-semibold transition-colors duration-150 hover:bg-ink hover:text-white"
+            >
+              {ui.footerButton}
+            </a>
+            <CvButton lugar="footer" className="px-6 py-3 text-base" />
+          </div>
         </Reveal>
 
-        {/* Bloque de enlaces */}
-        <Reveal delay={0.15}>
-          <div className="mt-16 flex flex-col items-center justify-between gap-8 border-t border-white/5 pt-10 sm:flex-row">
-            <div className="flex flex-wrap justify-center gap-3">
-              {socials.map(({ label, href, Icon }) => (
+        <div className="mt-16 h-px w-full bg-ink/20" />
+
+        {/*
+          El nombre completo cierra la página igual que la abrió. Mide ~7.5em
+          de ancho en Anton, y el contenedor nunca baja del 81% del viewport:
+          10.8vw lo deja lleno sin cortarse. Desde 2xl el contenedor ya no
+          crece, así que el tamaño pasa a fijo.
+        */}
+        <p
+          aria-hidden
+          className="font-display mt-10 text-center text-[10.8vw] leading-[0.9] whitespace-nowrap uppercase select-none 2xl:text-[10.6rem]"
+        >
+          {site.firstName} {site.lastName}
+        </p>
+
+        <div className="mt-8 flex flex-col-reverse items-center justify-between gap-4 text-xs tracking-wider uppercase sm:flex-row">
+          <p className="text-muted">
+            © {new Date().getFullYear()} Sebastian Pariachi. {ui.madeWith}
+          </p>
+          <ul className="flex gap-6">
+            {socials.map(({ label, href, Icon }) => (
+              <li key={label}>
                 <a
-                  key={label}
                   href={href}
                   target={href.startsWith("mailto:") ? undefined : "_blank"}
                   rel="noreferrer"
-                  className="group flex items-center gap-2.5 rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-medium text-zinc-300 backdrop-blur-md transition-[color,border-color] duration-150 ease-out hover:border-accent/40 hover:text-white"
+                  className="flex items-center gap-1.5 font-semibold transition-colors hover:text-accent"
                 >
-                  <Icon className="h-4 w-4 transition-colors group-hover:text-accent" />
+                  <Icon className="h-3.5 w-3.5" />
                   {label}
                 </a>
-              ))}
-            </div>
-
-            <p className="text-sm text-zinc-600">
-              © {new Date().getFullYear()} {site.name}. {ui.madeWith}
-            </p>
-          </div>
-        </Reveal>
-      </div>
-
-      {/* Nombre gigante desvaneciéndose al fondo */}
-      <div
-        aria-hidden
-        className="pointer-events-none mt-10 w-full overflow-hidden select-none"
-      >
-        <p className="translate-y-[18%] text-center text-[15vw] leading-none font-black tracking-tighter text-white/5">
-          {site.fullName}
-        </p>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </footer>
   );

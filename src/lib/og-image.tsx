@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { content } from "@/lib/content/dictionaries";
 import type { Locale } from "@/lib/content/types";
+import { site as siteData } from "@/lib/data";
 
 /**
  * Imagen de previsualización para LinkedIn, WhatsApp, Slack y compañía.
@@ -24,7 +25,8 @@ import type { Locale } from "@/lib/content/types";
 export const OG_SIZE = { width: 1200, height: 630 };
 
 const ACCENT = "#e11d48";
-const INK = "#0a0a0a";
+const INK = "#0b0b0c";
+const PAPER = "#e3e4e7";
 
 const fontFile = (peso: 400 | 800) =>
   join(
@@ -38,7 +40,7 @@ export async function renderOgImage(locale: Locale) {
 
   // Satori no resuelve rutas del servidor: la imagen entra como data URI.
   const [avatar, interRegular, interBold] = await Promise.all([
-    readFile(join(process.cwd(), "public/avatar.png")),
+    readFile(join(process.cwd(), "public", siteData.photo)),
     readFile(fontFile(400)),
     readFile(fontFile(800)),
   ]);
@@ -52,11 +54,8 @@ export async function renderOgImage(locale: Locale) {
           height: "100%",
           display: "flex",
           position: "relative",
-          backgroundColor: INK,
+          backgroundColor: PAPER,
           fontFamily: "Inter",
-          // El mismo resplandor rojo del hero, para que la tarjeta y la
-          // página se reconozcan como la misma marca.
-          backgroundImage: `radial-gradient(circle at 78% 45%, ${ACCENT}33 0%, ${INK}00 55%)`,
         }}
       >
         {/* Columna de texto */}
@@ -82,14 +81,14 @@ export async function renderOgImage(locale: Locale) {
                 width: 10,
                 height: 10,
                 borderRadius: 5,
-                backgroundColor: "#4ade80",
+                backgroundColor: "#22c55e",
                 marginRight: 12,
               }}
             />
             <div
               style={{
                 fontSize: 22,
-                color: "#a1a1aa",
+                color: "#5b5d63",
                 letterSpacing: 2,
               }}
             >
@@ -101,18 +100,18 @@ export async function renderOgImage(locale: Locale) {
             style={{
               fontSize: 86,
               fontWeight: 800,
-              color: "#ffffff",
+              color: INK,
               lineHeight: 1,
               letterSpacing: -3,
             }}
           >
-            Sebastián
+            Sebastian
           </div>
           <div
             style={{
               fontSize: 86,
               fontWeight: 800,
-              color: "#ffffff",
+              color: INK,
               lineHeight: 1,
               letterSpacing: -3,
               marginBottom: 28,
@@ -134,7 +133,7 @@ export async function renderOgImage(locale: Locale) {
           <div
             style={{
               fontSize: 34,
-              color: "#d4d4d8",
+              color: "#3f3f46",
               lineHeight: 1.3,
             }}
           >
@@ -153,7 +152,12 @@ export async function renderOgImage(locale: Locale) {
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={avatarSrc} width={430} height={430} alt="" />
+          <img
+            src={avatarSrc}
+            width={Math.round((430 * siteData.photoSize.width) / siteData.photoSize.height)}
+            height={430}
+            alt=""
+          />
         </div>
       </div>
     ),
