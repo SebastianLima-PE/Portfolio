@@ -90,9 +90,8 @@ export const projectMeta = {
   ferovaFamily: {
     title: "Ferova Family",
     image: "/projects/ferova-family-cover.png",
-    // El afiche es cuadrado y el texto ocupa la parte baja: se baja el recorte
-    // para que se lea completo, de "La anemia" a "familia"
-    imagePosition: "50% 82%",
+    // Gráfico de la anemia 2019–2023: el recorte va del título a los años
+    imagePosition: "50% 30%",
     href: "https://sanuvi-minsa.github.io/ferova-landing-page/",
   },
   candela: {
