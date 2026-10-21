@@ -31,14 +31,14 @@ export const es: Content = {
 
   hero: {
     kicker: ["Ingeniería de Software · UPC", "Busco prácticas pre-profesionales"],
+    statement: ["Construyo software de punta a punta.", "Mi fuerte: los datos."],
     tagline:
-      "Estudiante de 7.° ciclo, en el décimo superior de mi carrera. Construyo software de punta a punta —web, móvil y APIs— y mi fuerte son los datos: SQL, Power BI y automatización para que la información se convierta en decisiones.",
-    /** `icon` es una clave de TECH_ICONS; sin ella la etiqueta va solo con texto */
+      "Estudiante de **7.° ciclo de Ingeniería de Software** en la UPC, en el **décimo superior** de mi carrera. Desarrollo **web, móvil y APIs**, y uso **SQL, Power BI y automatización** para que la información se convierta en decisiones.",
     badges: [
-      { label: "SQL & Power BI", icon: "Power BI" },
-      { label: "Python", icon: "Python" },
-      { label: "React & Node.js", icon: "React" },
-      { label: "Kotlin & Flutter", icon: "Kotlin" },
+      { label: "SQL & Power BI", detail: "Datos y BI", icon: "Power BI" },
+      { label: "Python", detail: "Análisis y automatización", icon: "Python" },
+      { label: "React & Node.js", detail: "Web full stack", icon: "React" },
+      { label: "Kotlin & Flutter", detail: "Apps móviles", icon: "Kotlin" },
     ],
   },
 
@@ -130,8 +130,8 @@ export const es: Content = {
 
   about: {
     paragraphs: [
-      "Soy Sebastian Pariachi, estudiante de 7.° ciclo de Ingeniería de Software en la UPC y parte del décimo superior de mi carrera. Me gusta construir la solución completa, desde el modelo de datos hasta la interfaz, y lo que más disfruto es el momento en que los datos responden una pregunta que antes nadie podía contestar.",
-      "Busco mis prácticas pre-profesionales en un equipo donde pueda aportar desde el primer mes y seguir aprendiendo. Mi fuerte son los datos, pero me siento cómodo en desarrollo web, móvil o automatización: lo que importa es el problema que hay que resolver.",
+      "Soy Sebastian, estudiante de **7.° ciclo de Ingeniería de Software** en la UPC y parte del **décimo superior** de mi carrera. Me gusta construir la solución completa, del modelo de datos a la interfaz, y lo que más disfruto es **cuando los datos responden una pregunta** que antes nadie podía contestar.",
+      "Busco mis **prácticas pre-profesionales** en un equipo donde pueda aportar desde el primer mes y seguir aprendiendo. Mi fuerte son **los datos**, pero me muevo con soltura en **web, móvil y automatización**: lo que importa es el problema que hay que resolver.",
     ],
     facts: [
       { label: "Universidad", value: "UPC, Lima" },
@@ -150,14 +150,17 @@ export const es: Content = {
       period: "2026 — Presente",
     },
     {
+      // Recontratado: dice más que dos campañas sueltas, por eso va en una
+      // sola fila con la fecha de la primera en el texto
+      role: "Auxiliar Operativo",
+      company:
+        "Saga Falabella — recontratado para la campaña de fin de año. Antes, Mar — Abr 2025: inventario de más de 500 SKUs",
+      period: "Oct — Dic 2026",
+    },
+    {
       role: "Desarrollador Móvil Full Stack",
       company: "UPC — Proyecto Ferova, sistema para el MINSA",
       period: "Mar — Jul 2026",
-    },
-    {
-      role: "Auxiliar Operativo",
-      company: "Saga Falabella — inventario de más de 500 SKUs en campaña",
-      period: "Mar — Abr 2025",
     },
     {
       role: "Ingeniería de Software",
@@ -239,6 +242,7 @@ export const es: Content = {
     photoAlt: "Foto de Sebastian Pariachi",
     available: "Disponible para prácticas",
     scrollDown: "Baja",
+    stackHeading: "Stack principal",
     projectsHeading: "Proyectos",
     projectsLead: "Toca un proyecto para ver qué hice y qué logró.",
     viewProject: "Ver proyecto",

@@ -24,13 +24,14 @@ export const en: Content = {
 
   hero: {
     kicker: ["Software Engineering · UPC", "Looking for an internship"],
+    statement: ["I build software end to end.", "My strength: data."],
     tagline:
-      "7th-semester student, top 10% of my class. I build software end to end —web, mobile and APIs— and my strength is data: SQL, Power BI and automation that turn information into decisions.",
+      "**7th-semester Software Engineering student** at UPC in Lima, in the **top 10% of my class**. I build **web, mobile and APIs**, and use **SQL, Power BI and automation** to turn information into decisions.",
     badges: [
-      { label: "SQL & Power BI", icon: "Power BI" },
-      { label: "Python", icon: "Python" },
-      { label: "React & Node.js", icon: "React" },
-      { label: "Kotlin & Flutter", icon: "Kotlin" },
+      { label: "SQL & Power BI", detail: "Data & BI", icon: "Power BI" },
+      { label: "Python", detail: "Analysis & automation", icon: "Python" },
+      { label: "React & Node.js", detail: "Full stack web", icon: "React" },
+      { label: "Kotlin & Flutter", detail: "Mobile apps", icon: "Kotlin" },
     ],
   },
 
@@ -117,8 +118,8 @@ export const en: Content = {
 
   about: {
     paragraphs: [
-      "I'm Sebastian Pariachi, a 7th-semester Software Engineering student at UPC (Universidad Peruana de Ciencias Aplicadas) in Lima, ranked in the top 10% of my class. I like building the whole solution, from the data model to the interface, and my favorite moment is when the data answers a question nobody could answer before.",
-      "I'm looking for an internship on a team where I can contribute from the first month and keep learning. Data is my strength, but I'm comfortable in web, mobile or automation work: what matters is the problem to solve.",
+      "I'm Sebastian, a **7th-semester Software Engineering student** at UPC (Universidad Peruana de Ciencias Aplicadas) in Lima, in the **top 10% of my class**. I like building the whole solution, from the data model to the interface, and my favorite moment is **when the data answers a question** nobody could answer before.",
+      "I'm looking for an **internship** on a team where I can contribute from the first month and keep learning. **Data** is my strength, but I'm comfortable in **web, mobile and automation** work: what matters is the problem to solve.",
     ],
     facts: [
       { label: "University", value: "UPC, Lima" },
@@ -137,14 +138,15 @@ export const en: Content = {
       period: "2026 — Present",
     },
     {
+      role: "Operations Assistant",
+      company:
+        "Saga Falabella, a major department store chain in Peru — rehired for the year-end season. Previously Mar — Apr 2025: inventory of 500+ SKUs",
+      period: "Oct — Dec 2026",
+    },
+    {
       role: "Full Stack Mobile Developer",
       company: "UPC — Ferova project, system for Peru's Ministry of Health",
       period: "Mar — Jul 2026",
-    },
-    {
-      role: "Operations Assistant",
-      company: "Saga Falabella — inventory of 500+ SKUs during peak season",
-      period: "Mar — Apr 2025",
     },
     {
       role: "B.S. Software Engineering",
@@ -220,6 +222,7 @@ export const en: Content = {
     photoAlt: "Photo of Sebastian Pariachi",
     available: "Open to internships",
     scrollDown: "Scroll",
+    stackHeading: "Core stack",
     projectsHeading: "Projects",
     projectsLead: "Open a project to see what I built and what it achieved.",
     viewProject: "View project",

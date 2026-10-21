@@ -95,72 +95,118 @@
 /*
   CLAWD
   -----
-  Un ciclo de 9 s, como su animación original: saca la laptop a su lado,
-  la abre, teclea con la mano derecha, la cierra y la guarda. Las cuatro
-  piezas comparten duración, así que los porcentajes son una sola línea de
-  tiempo:
-    0–20%  quieto        20–30% saca la laptop    30–36% abre la tapa
-    36–64% teclea        64–70% cierra la tapa    70–80% la guarda
-  En el estado base (sin animación) la laptop está guardada y cerrada: eso
-  es lo que ve quien tiene activado "reducir movimiento".
+  Un ciclo de 12 s, como su animación original. Se muestra una pose a la vez
+  (opacidad a saltos, como los cuadros de un sprite) y todas las piezas
+  comparten duración, así que los porcentajes son una sola línea de tiempo:
+    0–15%   de frente, parpadea
+    15–30%  gira a la izquierda y guiña
+    30–36%  de frente
+    36–82%  gira a la derecha: saca la laptop (40–46), la abre (46–50),
+            teclea (50–70), la cierra (70–74) y la guarda (74–80)
+    82–100% de frente, parpadea
+  Sin animación (con "reducir movimiento") queda de frente y quieto.
   Los `px` dentro del SVG son unidades del viewBox, no píxeles de pantalla.
-  Casi todo va con steps(): se mueve a saltos de pixel, como un sprite.
 */
-.clawd-eyes,
+.clawd-left,
+.clawd-right {
+  opacity: 0;
+}
+
+.clawd-front {
+  animation: clawd-front 12s steps(1, end) infinite;
+}
+
+.clawd-left {
+  animation: clawd-left 12s steps(1, end) infinite;
+}
+
+.clawd-right {
+  animation: clawd-right 12s steps(1, end) infinite;
+}
+
+.clawd-blink,
+.clawd-look,
 .clawd-lid,
 .clawd-hand {
   transform-box: fill-box;
 }
 
-.clawd-eyes {
+.clawd-blink {
   transform-origin: center;
-  animation: clawd-eyes 9s steps(1, end) infinite;
+  animation: clawd-blink 12s steps(1, end) infinite;
+}
+
+.clawd-look {
+  transform-origin: center;
+  animation: clawd-look 12s steps(1, end) infinite;
 }
 
 .clawd-laptop {
   transform: translateX(-60px);
-  animation: clawd-laptop 9s steps(6, end) infinite;
+  animation: clawd-laptop 12s steps(6, end) infinite;
 }
 
 /* La tapa crece desde la bisagra, abajo a la izquierda */
 .clawd-lid {
   transform-origin: 0% 100%;
   transform: scaleY(0);
-  animation: clawd-lid 9s steps(4, end) infinite;
+  animation: clawd-lid 12s steps(4, end) infinite;
 }
 
 .clawd-hand {
-  animation: clawd-hand 9s steps(1, end) infinite;
+  animation: clawd-hand 12s steps(1, end) infinite;
 }
 
-/* Parpadeos sueltos, y la mirada baja a la pantalla mientras teclea */
-@keyframes clawd-eyes {
-  0%, 12%, 14%, 36% { transform: translateY(0) scaleY(1); }
-  12.5% { transform: translateY(0) scaleY(0.1); }
-  38%, 50%, 52%, 64% { transform: translateY(3px) scaleY(1); }
-  50.5% { transform: translateY(3px) scaleY(0.1); }
-  66%, 88%, 90%, 100% { transform: translateY(0) scaleY(1); }
-  88.5% { transform: translateY(0) scaleY(0.1); }
+@keyframes clawd-front {
+  0% { opacity: 1; }
+  15% { opacity: 0; }
+  30% { opacity: 1; }
+  36% { opacity: 0; }
+  82%, 100% { opacity: 1; }
+}
+
+@keyframes clawd-left {
+  0% { opacity: 0; }
+  15% { opacity: 1; }
+  30%, 100% { opacity: 0; }
+}
+
+@keyframes clawd-right {
+  0% { opacity: 0; }
+  36% { opacity: 1; }
+  82%, 100% { opacity: 0; }
+}
+
+/* Parpadeos de la pose de frente */
+@keyframes clawd-blink {
+  0%, 8.5%, 91.5%, 100% { transform: scaleY(1); }
+  7.5%, 90.5% { transform: scaleY(0.1); }
+}
+
+/* De lado mira la pantalla mientras teclea, y parpadea una vez */
+@keyframes clawd-look {
+  0%, 49%, 71%, 100% { transform: translateY(0) scaleY(1); }
+  50%, 61%, 70% { transform: translateY(3px) scaleY(1); }
+  60% { transform: translateY(3px) scaleY(0.1); }
 }
 
 @keyframes clawd-laptop {
-  0%, 20% { transform: translateX(-60px); }
-  30%, 70% { transform: translateX(0); }
+  0%, 40% { transform: translateX(-60px); }
+  46%, 74% { transform: translateX(0); }
   80%, 100% { transform: translateX(-60px); }
 }
 
 @keyframes clawd-lid {
-  0%, 30% { transform: scaleY(0); }
-  36%, 64% { transform: scaleY(1); }
-  70%, 100% { transform: scaleY(0); }
+  0%, 46% { transform: scaleY(0); }
+  50%, 70% { transform: scaleY(1); }
+  74%, 100% { transform: scaleY(0); }
 }
 
 /* Teclear: la mano sube y golpea el teclado */
 @keyframes clawd-hand {
-  0%, 36% { transform: translateY(0); }
-  38%, 42%, 46%, 50%, 54%, 58% { transform: translateY(-4px); }
-  40%, 44%, 48%, 52%, 56%, 60% { transform: translateY(0); }
-  100% { transform: translateY(0); }
+  0%, 50% { transform: translateY(0); }
+  52%, 56%, 60%, 64%, 68% { transform: translateY(-4px); }
+  54%, 58%, 62%, 66%, 70%, 100% { transform: translateY(0); }
 }
 
 /* Respeta a quien tenga activado "reducir movimiento" en su sistema */

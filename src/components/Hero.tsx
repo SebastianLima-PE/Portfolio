@@ -13,6 +13,7 @@ import { useRef } from "react";
 import { site } from "@/lib/data";
 import { useContent } from "@/lib/content";
 import CvButton from "./CvButton";
+import Highlight from "./Highlight";
 import { LinkedinIcon } from "./icons";
 import { EASE_OUT, REVEAL, VIEWPORT } from "./Reveal";
 import { TECH_ICONS } from "./tech-icons";
@@ -149,24 +150,27 @@ export default function Hero() {
       </div>
 
       {/* ---------- Pantalla 2: quién es y qué busca ---------- */}
+      {/*
+        Mismo lenguaje que el resto de la página: una declaración en la
+        condensada, un párrafo corto con lo importante resaltado y, a la
+        derecha, el stack como filas punteadas en vez de píldoras sueltas.
+        Los bloques nacen bajo el pliegue, así que se revelan con
+        `whileInView`: con `animate` se consumirían antes de que nadie los viera.
+      */}
       <div
         id="intro"
-        className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-5 py-24 sm:px-8 md:flex-row md:items-end md:justify-between"
+        className="mx-auto grid w-full max-w-7xl gap-14 px-5 py-24 sm:px-8 sm:py-32 lg:grid-cols-12 lg:gap-16"
       >
-        {/*
-          Estos bloques nacen bajo el pliegue, así que se revelan con
-          `whileInView`: con `animate` se consumirían antes de que nadie los viera.
-        */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT}
           transition={REVEAL}
-          className="flex max-w-2xl flex-col items-start gap-6"
+          className="lg:col-span-7"
         >
           {site.available && (
-            <span className="flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-sm font-medium">
+            <span className="inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-sm font-medium">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-neon opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-neon" />
@@ -175,11 +179,17 @@ export default function Hero() {
             </span>
           )}
 
-          <p className="text-xl leading-relaxed font-medium sm:text-2xl">
-            {hero.tagline}
+          <h2 className="font-display mt-8 text-[clamp(2.5rem,5.6vw,4.75rem)] leading-[0.95] uppercase">
+            {hero.statement[0]}
+            <br />
+            <span className="text-muted">{hero.statement[1]}</span>
+          </h2>
+
+          <p className="lead mt-8 max-w-xl text-muted">
+            <Highlight text={hero.tagline} />
           </p>
 
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="mt-10 flex flex-wrap items-center gap-3">
             <CvButton lugar="hero" className="px-6 py-3 text-base" />
             <a
               href={site.linkedin}
@@ -206,21 +216,32 @@ export default function Hero() {
           whileInView="visible"
           viewport={VIEWPORT}
           transition={{ ...REVEAL, delay: 0.12 }}
-          className="flex max-w-sm flex-wrap gap-2 md:justify-end"
+          className="lg:col-span-4 lg:col-start-9 lg:self-end"
         >
-          {hero.badges.map((badge) => {
-            const Icon = badge.icon ? TECH_ICONS[badge.icon]?.Icon : undefined;
+          <h3 className="eyebrow mb-2 flex items-center gap-4 text-muted">
+            {ui.stackHeading}
+            <span aria-hidden className="h-px flex-1 bg-ink/15" />
+          </h3>
+          <ul>
+            {hero.badges.map((badge) => {
+              const Icon = badge.icon ? TECH_ICONS[badge.icon]?.Icon : undefined;
 
-            return (
-              <span
-                key={badge.label}
-                className="flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium"
-              >
-                {Icon && <Icon className="h-3.5 w-3.5" />}
-                {badge.label}
-              </span>
-            );
-          })}
+              return (
+                <li
+                  key={badge.label}
+                  className="flex items-center gap-4 border-b border-dashed border-ink/20 py-4 last:border-b-0"
+                >
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white">
+                    {Icon && <Icon className="h-4 w-4" />}
+                  </span>
+                  <span>
+                    <span className="block font-semibold">{badge.label}</span>
+                    <span className="block text-sm text-muted">{badge.detail}</span>
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
         </motion.div>
       </div>
     </section>

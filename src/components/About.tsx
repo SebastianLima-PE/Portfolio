@@ -6,6 +6,7 @@ import type { ReactNode } from "react";
 import { site } from "@/lib/data";
 import { useContent } from "@/lib/content";
 import CvButton from "./CvButton";
+import Highlight from "./Highlight";
 import { GithubIcon, LinkedinIcon } from "./icons";
 import Reveal from "./Reveal";
 
@@ -93,17 +94,18 @@ export default function About() {
 
           {/* ---------- Derecha: la ficha ---------- */}
           <div className="flex flex-col gap-14 lg:col-span-7">
-            <Reveal className="space-y-5">
+            {/*
+              Los dos párrafos al mismo tamaño y en gris, con lo importante
+              en tinta: se lee en diagonal y ya no hay un bloque pesado
+              encima de otro liviano.
+            */}
+            <Reveal className="space-y-6">
               {about.paragraphs.map((paragraph, i) => (
                 <p
                   key={i}
-                  className={
-                    i === 0
-                      ? "text-xl leading-relaxed font-medium sm:text-2xl"
-                      : "lead text-ink/75"
-                  }
+                  className="text-lg leading-relaxed text-muted sm:text-xl sm:leading-relaxed"
                 >
-                  {paragraph}
+                  <Highlight text={paragraph} />
                 </p>
               ))}
             </Reveal>

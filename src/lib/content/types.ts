@@ -69,14 +69,19 @@ export type Content = {
   hero: {
     /** Las dos líneas de texto pequeño arriba a la izquierda */
     kicker: [string, string];
+    /** Declaración en dos líneas, en la tipografía condensada */
+    statement: [string, string];
+    /** Admite **resaltados** (ver Highlight) */
     tagline: string;
-    badges: { label: string; icon?: string }[];
+    /** `icon` es una clave de TECH_ICONS; `detail` dice para qué lo usa */
+    badges: { label: string; detail: string; icon?: string }[];
   };
 
   projects: Project[];
   skills: Skill[];
 
   about: {
+    /** Admiten **resaltados** (ver Highlight) */
     paragraphs: string[];
     /** Datos rápidos bajo la bio: se leen de un vistazo, sin buscar en el texto */
     facts: { label: string; value: string }[];
@@ -98,6 +103,7 @@ export type Content = {
     photoAlt: string;
     available: string;
     scrollDown: string;
+    stackHeading: string;
     projectsHeading: string;
     projectsLead: string;
     viewProject: string;
