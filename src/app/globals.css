@@ -95,19 +95,20 @@
 /*
   CLAWD
   -----
-  Un ciclo de 9 s: quieto y parpadeando, saca la laptop, la abre, teclea,
-  la cierra y la guarda. Las cinco piezas comparten duración, así que los
-  porcentajes se leen como una sola línea de tiempo:
-    0–22%  quieto        22–32% sube la laptop    32–38% abre la tapa
-    38–62% teclea        62–68% cierra la tapa    68–80% la guarda
-  En el estado base (sin animación) la laptop está escondida y cerrada: eso
+  Un ciclo de 9 s, como su animación original: saca la laptop a su lado,
+  la abre, teclea con la mano derecha, la cierra y la guarda. Las cuatro
+  piezas comparten duración, así que los porcentajes son una sola línea de
+  tiempo:
+    0–20%  quieto        20–30% saca la laptop    30–36% abre la tapa
+    36–64% teclea        64–70% cierra la tapa    70–80% la guarda
+  En el estado base (sin animación) la laptop está guardada y cerrada: eso
   es lo que ve quien tiene activado "reducir movimiento".
   Los `px` dentro del SVG son unidades del viewBox, no píxeles de pantalla.
+  Casi todo va con steps(): se mueve a saltos de pixel, como un sprite.
 */
 .clawd-eyes,
 .clawd-lid,
-.clawd-arm-l,
-.clawd-arm-r {
+.clawd-hand {
   transform-box: fill-box;
 }
 
@@ -117,60 +118,49 @@
 }
 
 .clawd-laptop {
-  transform: translateY(40px);
-  animation: clawd-laptop 9s var(--ease-in-out) infinite;
+  transform: translateX(-60px);
+  animation: clawd-laptop 9s steps(6, end) infinite;
 }
 
+/* La tapa crece desde la bisagra, abajo a la izquierda */
 .clawd-lid {
-  transform-origin: 50% 100%;
-  transform: scaleY(0.12);
-  animation: clawd-lid 9s var(--ease-out) infinite;
+  transform-origin: 0% 100%;
+  transform: scaleY(0);
+  animation: clawd-lid 9s steps(4, end) infinite;
 }
 
-.clawd-arm-l {
-  animation: clawd-arm-l 9s steps(1, end) infinite;
-}
-
-.clawd-arm-r {
-  animation: clawd-arm-r 9s steps(1, end) infinite;
+.clawd-hand {
+  animation: clawd-hand 9s steps(1, end) infinite;
 }
 
 /* Parpadeos sueltos, y la mirada baja a la pantalla mientras teclea */
 @keyframes clawd-eyes {
-  0%, 12%, 14%, 38% { transform: translateY(0) scaleY(1); }
+  0%, 12%, 14%, 36% { transform: translateY(0) scaleY(1); }
   12.5% { transform: translateY(0) scaleY(0.1); }
-  40%, 50%, 52%, 62% { transform: translateY(4px) scaleY(1); }
-  50.5% { transform: translateY(4px) scaleY(0.1); }
+  38%, 50%, 52%, 64% { transform: translateY(3px) scaleY(1); }
+  50.5% { transform: translateY(3px) scaleY(0.1); }
   66%, 88%, 90%, 100% { transform: translateY(0) scaleY(1); }
   88.5% { transform: translateY(0) scaleY(0.1); }
 }
 
 @keyframes clawd-laptop {
-  0%, 22% { transform: translateY(40px); }
-  32%, 68% { transform: translateY(0); }
-  80%, 100% { transform: translateY(40px); }
+  0%, 20% { transform: translateX(-60px); }
+  30%, 70% { transform: translateX(0); }
+  80%, 100% { transform: translateX(-60px); }
 }
 
 @keyframes clawd-lid {
-  0%, 32% { transform: scaleY(0.12); }
-  38%, 62% { transform: scaleY(1); }
-  68%, 100% { transform: scaleY(0.12); }
+  0%, 30% { transform: scaleY(0); }
+  36%, 64% { transform: scaleY(1); }
+  70%, 100% { transform: scaleY(0); }
 }
 
-/* Teclear: los brazos bajan al teclado y golpean alternados, a saltos de
-   pixel (steps) para que se sienta como un sprite y no como una animación suave */
-@keyframes clawd-arm-l {
-  0%, 30% { transform: translate(0, 0); }
-  34%, 42%, 50%, 58% { transform: translate(4px, 14px); }
-  38%, 46%, 54% { transform: translate(4px, 10px); }
-  64%, 100% { transform: translate(0, 0); }
-}
-
-@keyframes clawd-arm-r {
-  0%, 30% { transform: translate(0, 0); }
-  34%, 42%, 50%, 58% { transform: translate(-4px, 10px); }
-  38%, 46%, 54% { transform: translate(-4px, 14px); }
-  64%, 100% { transform: translate(0, 0); }
+/* Teclear: la mano sube y golpea el teclado */
+@keyframes clawd-hand {
+  0%, 36% { transform: translateY(0); }
+  38%, 42%, 46%, 50%, 54%, 58% { transform: translateY(-4px); }
+  40%, 44%, 48%, 52%, 56%, 60% { transform: translateY(0); }
+  100% { transform: translateY(0); }
 }
 
 /* Respeta a quien tenga activado "reducir movimiento" en su sistema */

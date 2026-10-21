@@ -50,7 +50,7 @@ export default function Footer() {
 
         {/* Clawd camina sobre la línea: el viewBox termina justo en sus patas */}
         <div className="mt-16 flex justify-end pr-2 sm:pr-8">
-          <Clawd className="w-20 sm:w-28" />
+          <Clawd className="w-32 sm:w-44" />
         </div>
         <div className="h-px w-full bg-ink/20" />
 

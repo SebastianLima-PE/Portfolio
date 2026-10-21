@@ -1,60 +1,72 @@
 /**
- * Clawd, el personaje de Claude Code, en pixel art. Cada "pixel" mide 10
- * unidades del viewBox, igual que la cuadrícula del dibujo original: cuerpo
- * de 8x6, brazos de 2x2, ojos de 1x1 y cuatro patas de 1x2.
+ * Clawd, el personaje de Claude Code, en pixel art y en vista de tres
+ * cuartos, como en su animación original: el costado izquierdo va en un tono
+ * más oscuro, el brazo sale por la derecha y la laptop se abre a su lado.
  *
- * La animación vive en globals.css (clases `clawd-*`): saca la laptop desde
- * detrás del cuerpo, la abre, teclea un rato, la cierra y la vuelve a
- * esconder. Con "reducir movimiento" se queda quieto y sin laptop.
+ * Escala: 10 unidades del viewBox = 1 pixel del dibujo de referencia de 25 px.
+ * El suelo está en y = 70, el borde inferior del viewBox, así sus pies se
+ * apoyan exactamente en la línea sobre la que se coloque.
+ *
+ * La animación vive en globals.css (clases `clawd-*`). Con "reducir
+ * movimiento" se queda quieto y sin laptop.
  */
+const BODY = "#D97757";
+const SHADE = "#C0634A";
+const LAPTOP = "#9B9B97";
+
 export default function Clawd({ className = "" }: { className?: string }) {
   return (
     <svg
-      viewBox="-10 10 140 90"
+      viewBox="0 -4 150 74"
       shapeRendering="crispEdges"
       aria-hidden
       className={className}
     >
       <defs>
-        {/* La laptop solo se ve por encima del borde inferior del cuerpo:
-            al bajar desaparece "detrás" de él en vez de asomar entre las patas */}
-        <clipPath id="clawd-pocket">
-          <rect x="-10" y="10" width="140" height="70" />
+        {/* La laptop solo existe a la derecha del cuerpo: al guardarla se
+            desliza hacia la izquierda y desaparece "detrás" de él */}
+        <clipPath id="clawd-side">
+          <rect x="90" y="-4" width="60" height="74" />
         </clipPath>
       </defs>
 
-      <g fill="#D97757">
-        {/* Patas */}
-        <rect x="20" y="80" width="10" height="20" />
-        <rect x="40" y="80" width="10" height="20" />
-        <rect x="70" y="80" width="10" height="20" />
-        <rect x="90" y="80" width="10" height="20" />
-        {/* Cuerpo */}
-        <rect x="20" y="20" width="80" height="60" />
-      </g>
-
-      <g className="clawd-eyes" fill="#0b0b0c">
-        <rect x="30" y="30" width="10" height="10" />
-        <rect x="80" y="30" width="10" height="10" />
-      </g>
-
-      <g clipPath="url(#clawd-pocket)">
-        <g className="clawd-laptop">
-          {/* Tapa vista por detrás, con el logo al centro */}
+      {/* Laptop, vista de lado: base plana y tapa en escalera */}
+      <g clipPath="url(#clawd-side)">
+        <g className="clawd-laptop" fill={LAPTOP}>
+          <rect x="96" y="65" width="34" height="5" />
           <g className="clawd-lid">
-            <rect x="28" y="42" width="64" height="22" fill="#3b3b39" />
-            <rect x="56" y="49" width="8" height="8" fill="#8c8c86" />
+            <rect x="126" y="59" width="5" height="7" />
+            <rect x="130" y="53" width="5" height="7" />
+            <rect x="134" y="47" width="5" height="7" />
+            <rect x="138" y="41" width="5" height="7" />
           </g>
-          {/* Teclado */}
-          <rect x="18" y="64" width="84" height="8" fill="#232322" />
         </g>
       </g>
 
-      {/* Los brazos van al final para quedar encima del teclado al teclear */}
-      <g fill="#D97757">
-        <rect className="clawd-arm-l" x="0" y="40" width="20" height="20" />
-        <rect className="clawd-arm-r" x="100" y="40" width="20" height="20" />
+      {/* Patas: columna y piecito hacia la izquierda */}
+      <g fill={BODY}>
+        <rect x="15" y="60" width="5" height="10" />
+        <rect x="10" y="65" width="5" height="5" />
+        <rect x="35" y="60" width="5" height="10" />
+        <rect x="30" y="65" width="5" height="5" />
+        <rect x="60" y="60" width="5" height="10" />
+        <rect x="55" y="65" width="5" height="5" />
+        <rect x="80" y="60" width="5" height="10" />
+        <rect x="75" y="65" width="5" height="5" />
       </g>
+
+      {/* Cuerpo con el costado en sombra */}
+      <rect x="10" y="0" width="80" height="60" fill={BODY} />
+      <rect x="10" y="0" width="18" height="60" fill={SHADE} />
+
+      <g className="clawd-eyes" fill="#0b0b0c">
+        <rect x="40" y="14" width="10" height="10" />
+        <rect x="80" y="14" width="10" height="10" />
+      </g>
+
+      {/* Brazo derecho y la mano que teclea */}
+      <rect x="90" y="25" width="14" height="25" fill={BODY} />
+      <rect className="clawd-hand" x="90" y="50" width="20" height="14" fill={SHADE} />
     </svg>
   );
 }
