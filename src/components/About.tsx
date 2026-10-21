@@ -63,10 +63,11 @@ export default function About() {
                 />
               </div>
 
-              <div className="mt-6 flex flex-wrap items-end justify-between gap-4">
+              {/* En columna: con el nombre completo ya no caben los enlaces al lado */}
+              <div className="mt-6 flex flex-col gap-4">
                 <div>
                   <p className="font-display text-3xl uppercase">
-                    {site.firstName} {site.lastName}
+                    {site.firstName} {site.lastName} {site.secondLastName}
                   </p>
                   <p className="mt-1 text-sm text-muted">{siteText.role}</p>
                 </div>

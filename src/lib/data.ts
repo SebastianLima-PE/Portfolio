@@ -18,13 +18,15 @@ export const contactUrl = (asunto: string) =>
   `mailto:${EMAIL}?subject=${encodeURIComponent(asunto)}`;
 
 export const site = {
-  /** Nombre corto para el logo del navbar */
-  name: "Sebastian",
+  /** Va en el título de la pestaña y de la tarjeta al compartir el enlace */
+  name: "Sebastian Pariachi",
   /** Iniciales del cuadrado negro del logo */
   initials: "SP",
   /** El nombre gigante del hero y del footer */
   firstName: "SEBASTIAN",
   lastName: "PARIACHI",
+  /** Segundo apellido: solo en la tarjeta de "Sobre mí", donde va el nombre completo */
+  secondLastName: "LIMAHUAYA",
   available: true,
 
   email: EMAIL,
