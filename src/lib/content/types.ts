@@ -16,6 +16,8 @@ export type Project = {
   tags: string[];
   /** Ruta dentro de /public — ej. "/projects/fintu.png" */
   image: string;
+  /** object-position de CSS para el recorte; por defecto, la parte de arriba */
+  imagePosition?: string;
   href?: string;
 };
 
@@ -76,6 +78,8 @@ export type Content = {
 
   about: {
     paragraphs: string[];
+    /** Datos rápidos bajo la bio: se leen de un vistazo, sin buscar en el texto */
+    facts: { label: string; value: string }[];
   };
 
   history: Job[];
@@ -90,6 +94,7 @@ export type Content = {
     closeMenu: string;
     /** Enlace al otro idioma */
     switchLanguage: { label: string; href: string; ariaLabel: string };
+    avatarAlt: string;
     photoAlt: string;
     available: string;
     scrollDown: string;

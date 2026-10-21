@@ -120,6 +120,14 @@ export const en: Content = {
       "I'm Sebastian Pariachi, a 7th-semester Software Engineering student at UPC (Universidad Peruana de Ciencias Aplicadas) in Lima, ranked in the top 10% of my class. I like building the whole solution, from the data model to the interface, and my favorite moment is when the data answers a question nobody could answer before.",
       "I'm looking for an internship on a team where I can contribute from the first month and keep learning. Data is my strength, but I'm comfortable in web, mobile or automation work: what matters is the problem to solve.",
     ],
+    facts: [
+      { label: "University", value: "UPC, Lima" },
+      { label: "Semester", value: "7th semester" },
+      { label: "Ranking", value: "Top 10% of class" },
+      { label: "Graduation", value: "July 2028 (expected)" },
+      { label: "Location", value: "Lima, Peru (GMT-5)" },
+      { label: "Languages", value: "Spanish (native) · English (intermediate)" },
+    ],
   },
 
   history: [
@@ -208,7 +216,8 @@ export const en: Content = {
       href: "/",
       ariaLabel: "Ver el portafolio en español",
     },
-    photoAlt: "Sebastian Pariachi",
+    avatarAlt: "3D avatar of Sebastian",
+    photoAlt: "Photo of Sebastian Pariachi",
     available: "Open to internships",
     scrollDown: "Scroll",
     projectsHeading: "Projects",

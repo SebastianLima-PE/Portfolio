@@ -33,10 +33,14 @@ export const site = {
     "https://www.linkedin.com/in/sebastian-pariachi-limahuaya-4974b0377",
 
   /*
-    Foto RECORTADA (PNG con fondo transparente): así se para delante del
-    nombre gigante del hero. Si la cambias, deja la nueva con el mismo nombre
-    y actualiza `photoSize` con sus medidas en píxeles.
+    Dos imágenes, las dos RECORTADAS (PNG con fondo transparente):
+    - `avatar`: el avatar 3D que se para delante del apellido en el hero.
+    - `photo`: la foto real, en la tarjeta de "Sobre mí".
+    Si cambias una, deja la nueva con el mismo nombre y actualiza su tamaño
+    en píxeles.
   */
+  avatar: "/avatar.png",
+  avatarSize: { width: 640, height: 640 },
   photo: "/sebastian.png",
   photoSize: { width: 987, height: 1024 },
 };
@@ -62,6 +66,10 @@ export const cv = {
   Imagen y enlace de cada proyecto. El orden de la lista lo decide el archivo
   de idioma, no este objeto.
 
+  `imagePosition` es el object-position de CSS: decide qué parte de la imagen
+  se ve cuando el recuadro (más ancho que alto) la recorta. Sin él, se ve la
+  parte de arriba, que es lo que conviene en las capturas de pantalla.
+
   TODO: cuando tengas un proyecto de datos (un dashboard de Power BI con su
   dataset y su pregunta de negocio), agrégalo aquí y ponlo PRIMERO en la
   lista de `es.ts` y `en.ts`. Es lo que más reforzaría tu fortaleza en datos.
@@ -74,12 +82,17 @@ export const projectMeta = {
   },
   ferovaClinic: {
     title: "Ferova Clinic",
-    image: "/projects/ferova-clinic.png",
+    image: "/projects/ferova-clinic-cover.webp",
+    // Los dos rostros, la enfermera y el niño, quedan dentro del recorte
+    imagePosition: "50% 40%",
     href: "https://sanuvi-minsa.github.io/ferova-landing-page/",
   },
   ferovaFamily: {
     title: "Ferova Family",
-    image: "/projects/ferova-family.png",
+    image: "/projects/ferova-family-cover.png",
+    // El afiche es cuadrado y el texto ocupa la parte baja: se baja el recorte
+    // para que se lea completo, de "La anemia" a "familia"
+    imagePosition: "50% 82%",
     href: "https://sanuvi-minsa.github.io/ferova-landing-page/",
   },
   candela: {
@@ -87,4 +100,7 @@ export const projectMeta = {
     image: "/projects/candela.png",
     href: "https://candela-ia.vercel.app/",
   },
-} satisfies Record<string, { title: string; image: string; href?: string }>;
+} satisfies Record<
+  string,
+  { title: string; image: string; imagePosition?: string; href?: string }
+>;

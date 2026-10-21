@@ -15,7 +15,6 @@ import * as si from "simple-icons";
  */
 const WANTED = [
   { slug: "react", title: "React" },
-  { slug: "nextdotjs", title: "Next.js", override: "#FFFFFF" },
   { slug: "typescript", title: "TypeScript" },
   { slug: "python", title: "Python" },
   { slug: "nodedotjs", title: "Node.js" },
@@ -23,8 +22,6 @@ const WANTED = [
   { slug: "mysql", title: "MySQL" },
   { slug: "kotlin", title: "Kotlin" },
   { slug: "flutter", title: "Flutter" },
-  { slug: "pandas", title: "Pandas", override: "#A78BFA" },
-  { slug: "scikitlearn", title: "scikit-learn" },
   { slug: "docker", title: "Docker" },
 ];
 

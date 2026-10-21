@@ -4,6 +4,7 @@ import { ArrowUpRight, Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "./icons";
 import { site } from "@/lib/data";
 import { useContent } from "@/lib/content";
+import Clawd from "./Clawd";
 import CvButton from "./CvButton";
 import Reveal from "./Reveal";
 
@@ -47,7 +48,11 @@ export default function Footer() {
           </div>
         </Reveal>
 
-        <div className="mt-16 h-px w-full bg-ink/20" />
+        {/* Clawd camina sobre la línea: el viewBox termina justo en sus patas */}
+        <div className="mt-16 flex justify-end pr-2 sm:pr-8">
+          <Clawd className="w-20 sm:w-28" />
+        </div>
+        <div className="h-px w-full bg-ink/20" />
 
         {/*
           El nombre completo cierra la página igual que la abrió. Mide ~7.5em

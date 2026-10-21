@@ -133,6 +133,14 @@ export const es: Content = {
       "Soy Sebastian Pariachi, estudiante de 7.° ciclo de Ingeniería de Software en la UPC y parte del décimo superior de mi carrera. Me gusta construir la solución completa, desde el modelo de datos hasta la interfaz, y lo que más disfruto es el momento en que los datos responden una pregunta que antes nadie podía contestar.",
       "Busco mis prácticas pre-profesionales en un equipo donde pueda aportar desde el primer mes y seguir aprendiendo. Mi fuerte son los datos, pero me siento cómodo en desarrollo web, móvil o automatización: lo que importa es el problema que hay que resolver.",
     ],
+    facts: [
+      { label: "Universidad", value: "UPC, Lima" },
+      { label: "Ciclo", value: "7.° ciclo" },
+      { label: "Rendimiento", value: "Décimo superior" },
+      { label: "Egreso", value: "Julio 2028 (previsto)" },
+      { label: "Ubicación", value: "Lima, Perú" },
+      { label: "Idiomas", value: "Español nativo · Inglés intermedio" },
+    ],
   },
 
   history: [
@@ -227,7 +235,8 @@ export const es: Content = {
       href: "/en",
       ariaLabel: "Ver el portafolio en inglés",
     },
-    photoAlt: "Sebastian Pariachi",
+    avatarAlt: "Avatar 3D de Sebastian",
+    photoAlt: "Foto de Sebastian Pariachi",
     available: "Disponible para prácticas",
     scrollDown: "Baja",
     projectsHeading: "Proyectos",

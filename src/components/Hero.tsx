@@ -114,12 +114,12 @@ export default function Hero() {
         </h1>
 
         {/*
-          La foto se para delante del nombre, anclada al borde inferior. Por
+          El avatar se para delante del nombre, anclado al borde inferior. Por
           eso tiene que ser un PNG recortado (sin fondo).
         */}
         <motion.div
           style={{ transform: photoTransform }}
-          className="pointer-events-none absolute bottom-0 left-1/2 z-20 w-[min(72vw,58svh,32rem)] -translate-x-1/2"
+          className="pointer-events-none absolute bottom-0 left-1/2 z-20 w-[min(88vw,74svh,40rem)] -translate-x-1/2"
         >
           <motion.div
             initial={{ opacity: 0, transform: "translateY(40px)" }}
@@ -127,10 +127,10 @@ export default function Hero() {
             transition={{ duration: 0.7, ease: EASE_OUT, delay: 0.3 }}
           >
             <Image
-              src={site.photo}
-              alt={ui.photoAlt}
-              width={site.photoSize.width}
-              height={site.photoSize.height}
+              src={site.avatar}
+              alt={ui.avatarAlt}
+              width={site.avatarSize.width}
+              height={site.avatarSize.height}
               priority
               sizes="(max-width: 768px) 88vw, 40rem"
               className="h-auto w-full"

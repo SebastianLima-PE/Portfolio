@@ -40,7 +40,7 @@ export async function renderOgImage(locale: Locale) {
 
   // Satori no resuelve rutas del servidor: la imagen entra como data URI.
   const [avatar, interRegular, interBold] = await Promise.all([
-    readFile(join(process.cwd(), "public", siteData.photo)),
+    readFile(join(process.cwd(), "public", siteData.avatar)),
     readFile(fontFile(400)),
     readFile(fontFile(800)),
   ]);
@@ -154,7 +154,7 @@ export async function renderOgImage(locale: Locale) {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={avatarSrc}
-            width={Math.round((430 * siteData.photoSize.width) / siteData.photoSize.height)}
+            width={Math.round((430 * siteData.avatarSize.width) / siteData.avatarSize.height)}
             height={430}
             alt=""
           />

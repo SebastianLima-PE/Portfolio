@@ -56,6 +56,7 @@ function FloatingPreview({
                 alt=""
                 fill
                 sizes="320px"
+                style={{ objectPosition: project.imagePosition }}
                 className="object-cover object-top"
               />
             </div>
@@ -84,6 +85,7 @@ function Detail({ project }: { project: Project }) {
             alt={project.title}
             fill
             sizes="(max-width: 768px) 100vw, 60vw"
+            style={{ objectPosition: project.imagePosition }}
             className="object-cover object-top"
           />
         </div>
