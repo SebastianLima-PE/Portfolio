@@ -146,8 +146,8 @@ export const es: Content = {
   history: [
     {
       role: "Desarrollador Full Stack",
-      company: "FinTú Co. (proyecto personal) y Candela IA (cliente)",
-      period: "2026 — Presente",
+      company: "Candela IA — app con IA para un cliente, entregada y en producción",
+      period: "Ago — Oct 2026",
     },
     {
       // Recontratado: dice más que dos campañas sueltas, por eso va en una
@@ -156,6 +156,11 @@ export const es: Content = {
       company:
         "Saga Falabella — recontratado para la campaña de fin de año. Antes, Mar — Abr 2025: inventario de más de 500 SKUs",
       period: "Oct — Dic 2026",
+    },
+    {
+      role: "Desarrollador Web Full Stack",
+      company: "FinTú Co. — proyecto personal, SaaS de tarjetas de crédito",
+      period: "Ene — Jul 2026",
     },
     {
       role: "Desarrollador Móvil Full Stack",

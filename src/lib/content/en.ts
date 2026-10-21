@@ -134,14 +134,19 @@ export const en: Content = {
   history: [
     {
       role: "Full Stack Developer",
-      company: "FinTú Co. (personal project) and Candela IA (client)",
-      period: "2026 — Present",
+      company: "Candela IA — AI-powered app for a client, delivered and live in production",
+      period: "Aug — Oct 2026",
     },
     {
       role: "Operations Assistant",
       company:
         "Saga Falabella, a major department store chain in Peru — rehired for the year-end season. Previously Mar — Apr 2025: inventory of 500+ SKUs",
       period: "Oct — Dec 2026",
+    },
+    {
+      role: "Full Stack Web Developer",
+      company: "FinTú Co. — personal project, credit card management SaaS",
+      period: "Jan — Jul 2026",
     },
     {
       role: "Full Stack Mobile Developer",
